@@ -1,0 +1,175 @@
+* {
+  font-size: medium;
+  }
+body{
+  background-color: #1a1a1a;
+}
+  .table td {
+    padding: 8px 0px 8px 0px;
+    font-size: medium;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .card-container.card {
+    max-width: 350px !important;
+    padding: 40px 40px;
+  }
+  
+  .card {
+    background-color: #f7f7f7;
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  
+  
+  .sidenav {
+    height: 350%;
+    width: 250px;
+    margin-left: 8px;
+    margin-top: 1px;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    background-color: #262626;
+    overflow-x: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 1px 2px 2px 2px rgba(0.3, 0.3, 0.3, 0.3);
+    border-radius: 5px;
+  }
+  
+  /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 10px 16px;
+    text-decoration: none;
+    font-size: large;
+    color: #F5F5F5;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  /* On mouse-over */
+  .sidenav a:hover {
+    color: #F5F5F5;
+    font-weight: bold;
+    background-color: #4d4d4d;
+  }
+  .dropdown-btn:hover {
+    color: #F5F5F5;
+    font-weight: bold;
+    background-color: #4d4d4d;
+  }
+  
+  /* Main content */
+  .main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  /* Add an active class to the active dropdown button */
+  .active {
+    background-color:black;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+    display: none;
+   /* background-color: #0000FF;*/
+    padding-left: 8px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  
+  /* Some media queries for responsiveness */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+ .dark-table {
+   background-color: #1a1a1a;
+ }
+
+ .dark-table-main {
+   margin-left: 60px;
+   background-color: #262626;
+   box-shadow: 1px 2px 2px 2px rgba(0.3, 0.3, 0.3, 0.3);
+   border-radius: 5px;
+ }
+
+  .dark-table-container {
+    background: #262626;
+    border-radius: 8px;
+  }
+
+  .dark-boots-table {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #262626;
+    margin-top: 10px;
+  }
+
+  .dark-form-main {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding : 20px;
+  }
+
+  .dark-card {
+    margin-top: 0;
+    margin-left : 15px;
+    border-radius: 5px;
+    background-color: #262626;
+    color: black;
+  }
+
+  .dark-card-header {
+    background-color: #333333;
+    color: white;
+  }
+
+  .dark-input {
+    background-color: #333333;
+    color: white;
+  }
+
+  .lg-wh {
+    color: white;
+  }
+
+  .dark-model {
+    background-color: #262626;
+  }
