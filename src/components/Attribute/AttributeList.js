@@ -95,7 +95,7 @@ export default function AttributeList(props) {
     }
 
     function viewAttribute(attributeId) {
-        props.history.push("attribute-admin/"+attributeId)
+        props.history.push("attribute/"+attributeId)
     }
 
     function deleteAttribute(attributeId) {

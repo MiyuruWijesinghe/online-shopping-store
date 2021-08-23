@@ -1,5 +1,4 @@
 .card-counter{
-    box-shadow: 2px 2px 10px #DADADA;
     margin: 5px;
     padding: 20px 10px;
     background-color: #fff;
@@ -9,7 +8,7 @@
 }
 
 .card-counter:hover{
-    box-shadow: 4px 4px 20px #DADADA;
+    box-shadow: 0 0 20px #ffff33;
     transition: .3s linear all;
 }
 
