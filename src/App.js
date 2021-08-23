@@ -73,12 +73,16 @@ import LatestNews from "./components/Common/LatestNews";
 
 import CategoryList from "./components/Category/CategoryList";
 import AddCategory from "./components/Category/AddCategory";
+import ViewCategory from "./components/Category/ViewCategory";
 import BrandList from "./components/Brand/BrandList";
 import AddBrand from "./components/Brand/AddBrand";
+import ViewBrand from "./components/Brand/ViewBrand";
 import AttributeList from "./components/Attribute/AttributeList";
 import AddAttribute from "./components/Attribute/AddAttribute";
+import ViewAttribute from "./components/Attribute/ViewAttribute";
 import AttributeValueList from "./components/AttributeValue/AttributeValueList";
 import AddAttributeValue from "./components/AttributeValue/AddAttributeValue";
+import ViewAttributeValue from "./components/AttributeValue/ViewAttributeValue";
 import ItemList from "./components/Item/ItemList";
 import AddItem from "./components/Item/AddItem";
 import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttributeValueList";
@@ -251,12 +255,16 @@ class App extends Component {
 
             <Route path="/categories-admin" component={CategoryList} />
             <Route path="/category/add" component={AddCategory} />
+            <Route path="/category-admin/:id" component={ViewCategory} />
             <Route path="/brands" component={BrandList} />
             <Route path="/brand/add" component={AddBrand} />
+            <Route path="/brand-admin/:id" component={ViewBrand} />
             <Route path="/attributes" component={AttributeList} />
             <Route path="/attribute/add" component={AddAttribute} />
+            <Route path="/attribute/:id" component={ViewAttribute} />
             <Route path="/attribute-values" component={AttributeValueList} />
             <Route path="/attribute-value/add" component={AddAttributeValue} />
+            <Route path="/attribute-value/:id" component={ViewAttributeValue} />
             <Route path="/items-admin" component={ItemList} />
             <Route path="/item/add" component={AddItem} />
             <Route path="/item-attribute-values/:id" component={ItemAttributeValueList} />

@@ -111,7 +111,7 @@ export default function AttributeValueList(props) {
     }
 
     function viewAttributeValue(attributeValueId) {
-        props.history.push("attribute-value-admin/"+attributeValueId)
+        props.history.push("attribute-value/"+attributeValueId)
     }
 
     function deleteAttributeValue(attributeValueId) {
