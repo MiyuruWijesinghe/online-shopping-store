@@ -1,20 +1,18 @@
-import React, {useEffect, useState} from "react";
-import AdminSideNav from "../Navbar/AdminSideNav";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Select from "react-select";
+import AdminSideNav from "../Navbar/AdminSideNav";
 import authHeader from "../../services/auth-header";
 import Switch from "react-switch";
 import {storage} from "../../firebase";
 import appleCamera from "../../images/apple-camera.png";
 
-export default function AddItem(props) {
+export default function ViewItem(props) {
 
-    const [categoryList, setCategoryList] = useState([]);
-    const [categoryOptionsList, setCategoryOptionsList] = useState([]);
-    const [brandList, setBrandList] = useState([]);
-    const [brandOptionsList, setBrandOptionsList] = useState([]);
+    const [id, setId] = useState("");
     const [categoryId, setCategoryId] = useState("");
+    const [categoryName, setCategoryName] = useState("");
     const [brandId, setBrandId] = useState("");
+    const [brandName, setBrandName] = useState("");
     const [name, setName] = useState("");
     const [code, setCode] = useState("");
     const [description, setDescription] = useState("");
@@ -25,8 +23,8 @@ export default function AddItem(props) {
     const [imageURL3, setImageURL3] = useState("");
     const [imageURL4, setImageURL4] = useState("");
     const [imageURL5, setImageURL5] = useState("");
-    const [outOfStock, setOutOfStock] = useState("NO");
-    const [status, setStatus] = useState("INACTIVE");
+    const [outOfStock, setOutOfStock] = useState("");
+    const [status, setStatus] = useState("");
     const [checkedStatus, setCheckedStatus] = useState(false);
     const [checkedStock, setCheckedStock] = useState(false);
     const [image1, setImage1] = useState(null);
@@ -41,63 +39,132 @@ export default function AddItem(props) {
     const [progress5, setProgress5] = useState('');
 
     useEffect(() => {
-        getCategory();
+        getItem();
     }, [])
 
-    function getCategory() {
-        axios.get("https://shopping-backend-api.herokuapp.com/category/status/ACTIVE").then((res) => {
-            setCategoryList(res.data);
+    function getItem() {
+        const itemId = props.match.params.id;
+        axios.get("https://shopping-backend-api.herokuapp.com/item/" + itemId).then((res) => {
+            setId(res.data.id);
+            setCategoryId(res.data.categoryId);
+            setCategoryName(res.data.categoryName);
+            setBrandId(res.data.brandId);
+            setBrandName(res.data.brandName);
+            setName(res.data.name);
+            setCode(res.data.code);
+            setDescription(res.data.description);
+            setPrice(res.data.price);
+            setDiscount(res.data.discount);
+            setImageURL1(res.data.imageURL1);
+            setImageURL2(res.data.imageURL2);
+            setImageURL3(res.data.imageURL3);
+            setImageURL4(res.data.imageURL4);
+            setImageURL5(res.data.imageURL5);
+            setOutOfStock(res.data.outOfStock);
+            setStatus(res.data.status);
+            initialStatus(res.data.status);
+            initialOutOfStock(res.data.outOfStock);
         }).catch((err) => {
             alert(err);
         })
     }
 
-    useEffect(() => {
-        if(categoryList.length > 0) {
-            setCategoryOptionValues();
+    function submit(e) {
+        e.preventDefault();
+        const dataObject = {
+            categoryId,
+            brandId,
+            name,
+            code,
+            description,
+            price,
+            discount,
+            imageURL1,
+            imageURL2,
+            imageURL3,
+            imageURL4,
+            imageURL5,
+            outOfStock,
+            status
         }
-    }, [categoryList])
-
-    function setCategoryOptionValues() {
-        const gotOptions = categoryList.map((category, index) => ({
-            value : category.id,
-            label : category.name
-        }))
-        setCategoryOptionsList(gotOptions)
-    }
-
-    useEffect(() => {
-        getBrand();
-    }, [])
-
-    function getBrand() {
-        axios.get("https://shopping-backend-api.herokuapp.com/brand/status/ACTIVE").then((res) => {
-            setBrandList(res.data);
+        const itemId = props.match.params.id;
+        axios.put("https://shopping-backend-api.herokuapp.com/item/" + itemId, dataObject, {headers: authHeader()}).then((res) => {
+            console.log(dataObject);
+            alert(res.data.messages);
+            props.history.push("/items-admin");
         }).catch((err) => {
-            alert(err);
+            if(err.response.data.categoryId !== undefined) {
+                alert(err.response.data.categoryId);
+            } else if(err.response.data.brandId !== undefined) {
+                alert(err.response.data.brandId);
+            } else if(err.response.data.name !== undefined) {
+                alert(err.response.data.name);
+            } else if(err.response.data.code !== undefined) {
+                alert(err.response.data.code);
+            } else if(err.response.data.status !== undefined) {
+                alert(err.response.data.status);
+            } else if(err.response.data.outOfStock !== undefined) {
+                alert(err.response.data.outOfStock);
+            } else if(err.response.data.price !== undefined) {
+                alert(err.response.data.price);
+            } else if(err.response.data.discount !== undefined) {
+                alert(err.response.data.discount);
+            } else if(err.response.data.imageURL1 !== undefined) {
+                alert(err.response.data.imageURL1);
+            } else if(err.response.data.imageURL2 !== undefined) {
+                alert(err.response.data.imageURL2);
+            } else if(err.response.data.imageURL3 !== undefined) {
+                alert(err.response.data.imageURL3);
+            } else if(err.response.data.imageURL4 !== undefined) {
+                alert(err.response.data.imageURL4);
+            } else if(err.response.data.imageURL5 !== undefined) {
+                alert(err.response.data.imageURL5);
+            } else if(err.response.data.message !== undefined) {
+                alert(err.response.data.message);
+            } else {
+                alert(err);
+            }
         })
     }
 
-    useEffect(() => {
-        if(brandList.length > 0) {
-            setBrandOptionValues();
+    function initialStatus(pStatus) {
+        if (pStatus == 'ACTIVE') {
+            setCheckedStatus(true);
+            setStatus('ACTIVE');
+        } else {
+            setCheckedStatus(false);
+            setStatus('INACTIVE');
         }
-    }, [brandList])
-
-    function setBrandOptionValues() {
-        const gotOptions = brandList.map((brand, index) => ({
-            value : brand.id,
-            label : brand.name
-        }))
-        setBrandOptionsList(gotOptions)
     }
 
-    function onCategorySelect(e) {
-        setCategoryId(e.value);
+    function initialOutOfStock(pStock) {
+        if (pStock == 'YES') {
+            setCheckedStock(true);
+            setOutOfStock('YES');
+        } else {
+            setCheckedStock(false);
+            setOutOfStock('NO');
+        }
     }
 
-    function onBrandSelect(e) {
-        setBrandId(e.value);
+    function handleStatus() {
+        if (checkedStatus) {
+            setCheckedStatus(false);
+            setStatus('INACTIVE');
+        } else {
+            setCheckedStatus(true);
+            setStatus('ACTIVE');
+        }
+    }
+
+    function handleOutOfStock() {
+        if (checkedStock) {
+            setCheckedStock(false);
+            setOutOfStock('NO');
+        } else {
+            setCheckedStock(true);
+            setOutOfStock('YES');
+        }
     }
 
     function handleImage1Change(e) {
@@ -260,93 +327,6 @@ export default function AddItem(props) {
         }
     }
 
-    function submit(e) {
-        e.preventDefault();
-        const dataObject = {
-            categoryId,
-            brandId,
-            name,
-            code,
-            description,
-            price,
-            discount,
-            imageURL1,
-            imageURL2,
-            imageURL3,
-            imageURL4,
-            imageURL5,
-            outOfStock,
-            status
-        }
-        axios.post("https://shopping-backend-api.herokuapp.com/item/save", dataObject, {headers: authHeader()}).then((res) => {
-            console.log(dataObject);
-            alert(res.data.messages);
-            props.history.push("/items-admin");
-        }).catch((err) => {
-            if(err.response.data.categoryId !== undefined) {
-                alert(err.response.data.categoryId);
-            } else if(err.response.data.brandId !== undefined) {
-                alert(err.response.data.brandId);
-            } else if(err.response.data.name !== undefined) {
-                alert(err.response.data.name);
-            } else if(err.response.data.code !== undefined) {
-                alert(err.response.data.code);
-            } else if(err.response.data.status !== undefined) {
-                alert(err.response.data.status);
-            } else if(err.response.data.outOfStock !== undefined) {
-                alert(err.response.data.outOfStock);
-            } else if(err.response.data.price !== undefined) {
-                alert(err.response.data.price);
-            } else if(err.response.data.discount !== undefined) {
-                alert(err.response.data.discount);
-            } else if(err.response.data.imageURL1 !== undefined) {
-                alert(err.response.data.imageURL1);
-            } else if(err.response.data.imageURL2 !== undefined) {
-                alert(err.response.data.imageURL2);
-            } else if(err.response.data.imageURL3 !== undefined) {
-                alert(err.response.data.imageURL3);
-            } else if(err.response.data.imageURL4 !== undefined) {
-                alert(err.response.data.imageURL4);
-            } else if(err.response.data.imageURL5 !== undefined) {
-                alert(err.response.data.imageURL5);
-            } else if(err.response.data.message !== undefined) {
-                alert(err.response.data.message);
-            } else {
-                alert(err);
-            }
-        })
-    }
-
-    function handleStatus() {
-        if (checkedStatus) {
-            setCheckedStatus(false);
-            setStatus('INACTIVE');
-        } else {
-            setCheckedStatus(true);
-            setStatus('ACTIVE');
-        }
-    }
-
-    function handleOutOfStock() {
-        if (checkedStock) {
-            setCheckedStock(false);
-            setOutOfStock('NO');
-        } else {
-            setCheckedStock(true);
-            setOutOfStock('YES');
-        }
-    }
-
-    function customTheme(theme) {
-        return{
-            ...theme,
-            colors: {
-                ...theme.colors,
-                primary25: 'orange'
-            }
-        }
-    }
-
     return(
         <div className="main">
             <AdminSideNav />
@@ -357,47 +337,53 @@ export default function AddItem(props) {
                         <h4>Item</h4>
                     </div>
                     <div className="card-body">
-                        <form onSubmit={(e) => submit(e)}>
+                        <form>
                             <div className="form-group row">
-                                <label htmlFor="categoryId" className="col-sm-3 lg-wh">Category</label>
+                                <label htmlFor="id" className="col-sm-3 lg-wh">Id</label>
                                 <div className="col-sm-5">
-                                    <Select options={categoryOptionsList} onChange={(e) => onCategorySelect(e)} id="categoryId" placeholder="Select Category" single autoFocus isSearchable theme={customTheme} />
+                                    <input type="text" className="form-control" id="id" value={id} readOnly/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
-                                <label htmlFor="brandId" className="col-sm-3 lg-wh">Brand</label>
+                                <label htmlFor="categoryName" className="col-sm-3 lg-wh">Category</label>
                                 <div className="col-sm-5">
-                                    <Select options={brandOptionsList} onChange={(e) => onBrandSelect(e)} id="brandId" placeholder="Select Brand" single autoFocus isSearchable theme={customTheme} />
+                                    <input type="text" className="form-control" id="categoryName" value={categoryName} readOnly/>
+                                </div>
+                            </div><br/>
+                            <div className="form-group row">
+                                <label htmlFor="brandName" className="col-sm-3 lg-wh">Brand</label>
+                                <div className="col-sm-5">
+                                    <input type="text" className="form-control" id="brandName" value={brandName} readOnly/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="name" className="col-sm-3 lg-wh">Name</label>
                                 <div className="col-sm-5">
-                                    <input type="text" onChange={(e) => setName(e.target.value)} className="form-control" id="name" placeholder="Enter Name" required/>
+                                    <input type="text" className="form-control" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter Name" value={name} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="code" className="col-sm-3 lg-wh">Code</label>
                                 <div className="col-sm-5">
-                                    <input type="text" onChange={(e) => setCode(e.target.value)} className="form-control" id="code" placeholder="Enter Code" required/>
+                                    <input type="text" className="form-control" onChange={(e) => setCode(e.target.value)} id="code" placeholder="Enter Code" value={code} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="description" className="col-sm-3 lg-wh">Description</label>
                                 <div className="col-sm-5">
-                                    <textarea onChange={(e) => setDescription(e.target.value)} className="form-control" id="description" cols="30" rows="6" placeholder="Enter Description" />
+                                    <textarea onChange={(e) => setDescription(e.target.value)} className="form-control" id="description" cols="30" rows="6" placeholder="Enter Description" value={description} />
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="price" className="col-sm-3 lg-wh">Price</label>
                                 <div className="col-sm-5">
-                                    <input type="text" onChange={(e) => setPrice(e.target.value)} className="form-control" id="price" placeholder="Enter Price" required/>
+                                    <input type="text" className="form-control" onChange={(e) => setPrice(e.target.value)} id="price" placeholder="Enter Price" value={(Math.round(price * 100) / 100).toFixed(2)} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="discount" className="col-sm-3 lg-wh">Discount</label>
                                 <div className="col-sm-5">
-                                    <input type="text" onChange={(e) => setDiscount(e.target.value)} className="form-control" id="discount" placeholder="Enter Discount" required/>
+                                    <input type="text" className="form-control" onChange={(e) => setDiscount(e.target.value)} id="discount" placeholder="Enter Discount" value={(Math.round(discount * 100) / 100).toFixed(2)} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
@@ -477,7 +463,7 @@ export default function AddItem(props) {
                                     <progress className="progress-bar progress-bar-striped bg-danger" role="progressbar" value={progress5} max="100" />
                                 </div>
                             </div><br/>
-                            <button type="submit" className="btn btn-primary">Save</button>
+                            <button onClick={(e) => submit(e)} className="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>
