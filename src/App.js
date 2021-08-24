@@ -85,6 +85,7 @@ import AddAttributeValue from "./components/AttributeValue/AddAttributeValue";
 import ViewAttributeValue from "./components/AttributeValue/ViewAttributeValue";
 import ItemList from "./components/Item/ItemList";
 import AddItem from "./components/Item/AddItem";
+import ViewItem from "./components/Item/ViewItem";
 import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttributeValueList";
 
 class App extends Component {
@@ -171,7 +172,7 @@ class App extends Component {
                 </li>
                 <li className="nav-item">
                   <a href="/home" className="nav-link" onClick={this.logOut}>
-                    LogOut
+                    &nbsp; LogOut
                   </a>
                 </li>
                 <li className="nav-item">
@@ -182,6 +183,9 @@ class App extends Component {
               </div>
           ) : (
               <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/"} className="nav-link">Register</Link>
+                </li>
                 <li className="nav-item">
                   <Link to={"/login"} className="nav-link">Login</Link>
                 </li>
@@ -267,6 +271,7 @@ class App extends Component {
             <Route path="/attribute-value/:id" component={ViewAttributeValue} />
             <Route path="/items-admin" component={ItemList} />
             <Route path="/item/add" component={AddItem} />
+            <Route path="/item-admin/:id" component={ViewItem} />
             <Route path="/item-attribute-values/:id" component={ItemAttributeValueList} />
 
           </Switch>
