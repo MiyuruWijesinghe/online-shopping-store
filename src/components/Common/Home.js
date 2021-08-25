@@ -9,7 +9,7 @@ export default function Home(props) {
     return(
         <div>
             <Header/>
-            <div className="card py-5 border-0 px-0 mx-0 home-image">
+            <div className="card py-5 border-0 px-0 mx-0 front-image">
                 <div className="card-body text-center">
                     <div className="row justify-content-center">
                         <div className="col-auto">
@@ -17,7 +17,7 @@ export default function Home(props) {
                             <h4 className="home-h1">Sri Lanka's Largest Online Shopping Store</h4>
                             <div className="row justify-content-center">
                                 <div className="col-10"><br/>
-                                    <h2 className="home-h1"> <b>Choose Anything</b></h2>
+                                    <h2 className="home-h1"> <b><i>"The Choice is Yours"</i></b></h2>
                                 </div>
                             </div>
                         </div>

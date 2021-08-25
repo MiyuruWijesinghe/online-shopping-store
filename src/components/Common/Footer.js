@@ -18,13 +18,13 @@ export default function Footer() {
                     </div>
                     <div className="col-xl-2 col-md-3 pt-4 order-1">
                         <ul className="list-unstyled">
-                            <li className="mt-md-0 mt-4 footer-li">About us</li>
+                            <li className="mt-md-0 mt-4 footer-li">About Us</li>
                             <li className="footer-li">3rd Year SE Students </li>
                         </ul>
                     </div>
                     <div className="col-xl-2 col-md-3 pt-4 order-2">
                         <ul className="list-unstyled">
-                            <li className="mt-md-0 mt-4 footer-li">Contacts US</li>
+                            <li className="mt-md-0 mt-4 footer-li">Contact Us</li>
                             <li className="footer-li">johndoe@gmail.com </li>
                         </ul>
                     </div>

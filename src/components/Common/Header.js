@@ -10,10 +10,16 @@ export default function Header() {
                         <Link to={"/"} className="nav-link" >Home</Link>
                     </li>
                     <li className="nav-item nav-item-pad">
-                        <Link to={"/common-tracks"} className="nav-link" >Tracks</Link>
+                        <Link to={"/common-categories"} className="nav-link" >Categories</Link>
                     </li>
                     <li className="nav-item nav-item-pad">
-                        <Link to={"/common-keynotes"} className="nav-link" >Keynotes</Link>
+                        <Link to={"/common-news"} className="nav-link" >Customer Care</Link>
+                    </li>
+                    <li className="nav-item nav-item-pad">
+                        <Link to={"/common-news"} className="nav-link" >About Us</Link>
+                    </li>
+                    <li className="nav-item nav-item-pad">
+                        <Link to={"/common-news"} className="nav-link" >Latest News</Link>
                     </li>
                     <li className="nav-item nav-item-pad">
                         <Link to={"/common-researches"} className="nav-link" >Researches</Link>
@@ -33,21 +39,6 @@ export default function Header() {
                             <Link to={"/register/ROLE_RESEARCHER"} className="dropdown-item d-item" >Research</Link>
                             <div className="dropdown-divider"></div>
                             <Link to={"/register/ROLE_WORKSHOP_CONDUCTOR"} className="dropdown-item d-item" >Workshop</Link>
-                        </div>
-                    </li>
-                    <li className="nav-item nav-item-pad">
-                        <Link to={"/common-news"} className="nav-link" >Latest News</Link>
-                    </li>
-                    <li className="nav-item dropdown nav-item-pad">
-                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Downloads
-                        </a>
-                        <div className="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                            <div className="dropdown-divider"></div>
-                            <Link to={"/research-downloads"} className="dropdown-item d-item" >Researches</Link>
-                            <div className="dropdown-divider"></div>
-                            <Link to={"/workshop-downloads"} className="dropdown-item d-item" >Workshops</Link>
                         </div>
                     </li>
                 </div>

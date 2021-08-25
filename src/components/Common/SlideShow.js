@@ -31,6 +31,10 @@ export default function SlideShow() {
                         <div className="slide-image6">
                         </div>
                     </div>
+                    <div className="each-slide">
+                        <div className="slide-image7">
+                        </div>
+                    </div>
                 </Slide>
             </div>
     )
