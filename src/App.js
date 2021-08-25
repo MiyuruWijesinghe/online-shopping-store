@@ -87,6 +87,8 @@ import ItemList from "./components/Item/ItemList";
 import AddItem from "./components/Item/AddItem";
 import ViewItem from "./components/Item/ViewItem";
 import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttributeValueList";
+import CategoryListFront from "./components/Common/CategoryListFront";
+import ItemListFront from "./components/Common/ItemListFront";
 
 class App extends Component {
   constructor(props) {
@@ -177,7 +179,7 @@ class App extends Component {
                 </li>
                 <li className="nav-item">
                   <a href="/home" className="nav-link">
-                    <i className="fa fa-shopping-cart"></i>&nbsp; My Cart
+                    <i className="fa fa-shopping-cart"></i>&nbsp; Cart
                   </a>
                 </li>
               </div>
@@ -273,6 +275,8 @@ class App extends Component {
             <Route path="/item/add" component={AddItem} />
             <Route path="/item-admin/:id" component={ViewItem} />
             <Route path="/item-attribute-values/:id" component={ItemAttributeValueList} />
+            <Route path="/common-categories" component={CategoryListFront} />
+            <Route path="/common-items/:id" component={ItemListFront} />
 
           </Switch>
         </div>

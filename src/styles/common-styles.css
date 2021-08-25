@@ -7,6 +7,15 @@
     margin-bottom: 0;
 }
 
+.front-image {
+    background-image: url('../images/preview.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .home-h1 {
     color: white;
 }
