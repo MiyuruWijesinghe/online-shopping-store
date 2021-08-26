@@ -3,6 +3,8 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import {InputGroup, FormControl, Button} from 'react-bootstrap';
+import {Link} from "react-router-dom";
+import Rating from '@material-ui/lab/Rating';
 
 export default function ItemListFront(props) {
 
@@ -35,6 +37,10 @@ export default function ItemListFront(props) {
         }).catch((err) => {
             alert(err);
         })
+    }
+
+    function viewItem(itemId) {
+        props.history.push("common-item/"+itemId)
     }
 
     function changePage(e) {
@@ -102,14 +108,17 @@ export default function ItemListFront(props) {
                                 :
                                 currentRecords.map((item, index) => (
                                     <div className="col-md-4">
-                                        <div className="card bg-dark fr-track-card">
-                                            <img className="card-img-top fr-track-card-img" src={item.imageURL1} alt="No image" />
-                                            <div className="card-body">
-                                                <center><h5>{item.name}</h5></center>
-                                                <center><p>Rs.&nbsp; {(Math.round(item.price * 100) / 100).toFixed(2) - (Math.round(item.discount * 100) / 100).toFixed(2)}</p></center>
-                                                <center><p><strike>Rs.&nbsp; {(Math.round(item.price * 100) / 100).toFixed(2)}</strike></p></center>
+                                        <Link style={{textDecoration : 'none'}}>
+                                            <div className="card bg-dark fr-item-card" onClick={() => viewItem(item.id)}>
+                                                <img className="card-img-top fr-track-card-img" src={item.imageURL1} alt="No image" />
+                                                <div className="card-body">
+                                                    <h5 align="left">{item.name}</h5>
+                                                    <p align="left"><b>Rs.&nbsp; {(Math.round(item.price * 100) / 100).toFixed(2) - (Math.round(item.discount * 100) / 100).toFixed(2)}</b></p>
+                                                    <p align="left"><b><strike>Rs.&nbsp; {(Math.round(item.price * 100) / 100).toFixed(2)}</strike></b></p>
+                                                    <p align="left"><Rating name="half-rating-read" defaultValue={2} precision={0.5} readOnly />&nbsp; (2)</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     </div>
                                 ))
                         }

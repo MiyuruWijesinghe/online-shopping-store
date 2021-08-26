@@ -89,6 +89,7 @@ import ViewItem from "./components/Item/ViewItem";
 import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttributeValueList";
 import CategoryListFront from "./components/Common/CategoryListFront";
 import ItemListFront from "./components/Common/ItemListFront";
+import ViewItemFront from "./components/Common/ViewItemFront";
 
 class App extends Component {
   constructor(props) {
@@ -277,6 +278,7 @@ class App extends Component {
             <Route path="/item-attribute-values/:id" component={ItemAttributeValueList} />
             <Route path="/common-categories" component={CategoryListFront} />
             <Route path="/common-items/:id" component={ItemListFront} />
+            <Route path="/common-item/:id" component={ViewItemFront} />
 
           </Switch>
         </div>

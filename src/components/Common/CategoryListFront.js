@@ -92,12 +92,14 @@ export default function CategoryListFront(props) {
                                     :
                                     currentRecords.map((category, index) => (
                                         <div className="col-md-4">
-                                            <div className="card bg-dark fr-track-card">
-                                                <Link><img className="card-img-top fr-track-card-img" src={category.imageURL} alt="No image" onClick={() => viewItems(category.id)} /></Link>
+                                            <Link style={{textDecoration : 'none'}}>
+                                            <div className="card bg-dark fr-track-card" onClick={() => viewItems(category.id)}>
+                                                <img className="card-img-top fr-track-card-img" src={category.imageURL} alt="No image" />
                                                 <div className="card-body">
                                                     <center><h5>{category.name}</h5></center>
                                                 </div>
                                             </div>
+                                            </Link>
                                         </div>
                                     ))
                             }
