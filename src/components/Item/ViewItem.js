@@ -53,8 +53,8 @@ export default function ViewItem(props) {
             setName(res.data.name);
             setCode(res.data.code);
             setDescription(res.data.description);
-            setPrice(res.data.price);
-            setDiscount(res.data.discount);
+            setPrice((Math.round(res.data.price * 100) / 100).toFixed(2));
+            setDiscount((Math.round(res.data.discount * 100) / 100).toFixed(2));
             setImageURL1(res.data.imageURL1);
             setImageURL2(res.data.imageURL2);
             setImageURL3(res.data.imageURL3);
@@ -377,13 +377,13 @@ export default function ViewItem(props) {
                             <div className="form-group row">
                                 <label htmlFor="price" className="col-sm-3 lg-wh">Price</label>
                                 <div className="col-sm-5">
-                                    <input type="text" className="form-control" onChange={(e) => setPrice(e.target.value)} id="price" placeholder="Enter Price" value={(Math.round(price * 100) / 100).toFixed(2)} required/>
+                                    <input type="text" className="form-control" onChange={(e) => setPrice(e.target.value)} id="price" placeholder="Enter Price" value={price} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
                                 <label htmlFor="discount" className="col-sm-3 lg-wh">Discount</label>
                                 <div className="col-sm-5">
-                                    <input type="text" className="form-control" onChange={(e) => setDiscount(e.target.value)} id="discount" placeholder="Enter Discount" value={(Math.round(discount * 100) / 100).toFixed(2)} required/>
+                                    <input type="text" className="form-control" onChange={(e) => setDiscount(e.target.value)} id="discount" placeholder="Enter Discount" value={discount} required/>
                                 </div>
                             </div><br/>
                             <div className="form-group row">
