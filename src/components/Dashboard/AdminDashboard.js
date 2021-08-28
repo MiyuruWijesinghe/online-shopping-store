@@ -5,14 +5,13 @@ import AdminSideNav from "../Navbar/AdminSideNav";
 export default function AdminDashboard(props) {
 
     const [data, setData] = useState({
-        totalConferences: "",
-        totalConferenceDetails: "",
-        totalTracks: "",
-        totalKeynoteSpeakers: "",
-        totalResearches: "",
-        totalWorkshops: "",
-        totalUsers: "",
-        totalRoles: ""
+        totalItems: "",
+        totalCategories: "",
+        totalBrands: "",
+        totalAdmins: "",
+        totalSellers: "",
+        totalBuyers: "",
+        totalOrders: ""
     })
 
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function AdminDashboard(props) {
     }, [])
 
     function getDashboard() {
-        axios.get("https://icaf-backend.herokuapp.com/dashboard/admin").then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/dashboard/admin").then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);
@@ -41,7 +40,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter conf">
                                         <i className="fa fa-shopping-cart"></i>
-                                        <span className="count-numbers"><h1>{data.totalConferences}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalItems}</h1></span>
                                         <span className="count-name">Items</span>
                                     </div>
                                 </div>
@@ -49,7 +48,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter conf-det">
                                         <i className="fa fa-th-list"></i>
-                                        <span className="count-numbers"><h1>{data.totalConferenceDetails}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalCategories}</h1></span>
                                         <span className="count-name">Categories</span>
                                     </div>
                                 </div>
@@ -57,7 +56,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter tracks">
                                         <i className="fa fa-gift"></i>
-                                        <span className="count-numbers"><h1>{data.totalTracks}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalBrands}</h1></span>
                                         <span className="count-name">Brands</span>
                                     </div>
                                 </div>
@@ -65,7 +64,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter browns">
                                         <i className="fa fa-handshake-o"></i>
-                                        <span className="count-numbers"><h1>{data.totalKeynoteSpeakers}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalSellers}</h1></span>
                                         <span className="count-name">Sellers</span>
                                     </div>
                                 </div>
@@ -74,7 +73,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter buyers">
                                         <i className="fa fa-users"></i>
-                                        <span className="count-numbers"><h1>{data.totalResearches}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalBuyers}</h1></span>
                                         <span className="count-name">Buyers</span>
                                     </div>
                                 </div>
@@ -82,7 +81,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter orders">
                                         <i className="fa fa-money"></i>
-                                        <span className="count-numbers"><h1>{data.totalWorkshops}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalOrders}</h1></span>
                                         <span className="count-name">Orders</span>
                                     </div>
                                 </div>
@@ -90,7 +89,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter users">
                                         <i className="fa fa-users"></i>
-                                        <span className="count-numbers"><h1>{data.totalUsers}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalAdmins}</h1></span>
                                         <span className="count-name">Admins</span>
                                     </div>
                                 </div>
@@ -98,7 +97,7 @@ export default function AdminDashboard(props) {
                                 <div className="col-md-3">
                                     <div className="card-counter blacks">
                                         <i className="fa fa-sliders"></i>
-                                        <span className="count-numbers"><h1>{data.totalRoles}</h1></span>
+                                        <span className="count-numbers"><h1>{data.totalAdmins}</h1></span>
                                         <span className="count-name">Roles</span>
                                     </div>
                                 </div>
