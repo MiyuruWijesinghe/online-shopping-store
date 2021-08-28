@@ -278,7 +278,7 @@ class App extends Component {
             <Route path="/item-attribute-values/:id" component={ItemAttributeValueList} />
             <Route path="/common-categories" component={CategoryListFront} />
             <Route path="/common-items/:id" component={ItemListFront} />
-            <Route path="/common-item/:id" component={ViewItemFront} />
+            <Route path="/view-item/:id" component={ViewItemFront} />
 
           </Switch>
         </div>

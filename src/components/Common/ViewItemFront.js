@@ -33,7 +33,7 @@ export default function ViewItemFront(props) {
     return(
         <div>
             <Header/>
-            <div className="card py-5 border-0 px-0 mx-0 home-image">
+            <div className="card py-5 border-0 px-0 mx-0 front-image">
                 <div className="card-body text-center">
                     <div className="row justify-content-center">
                         <div className="col-auto">
