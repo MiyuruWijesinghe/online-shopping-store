@@ -40,7 +40,7 @@ export default function ItemListFront(props) {
     }
 
     function viewItem(itemId) {
-        props.history.push("common-item/"+itemId)
+        props.history.push("/view-item/"+itemId)
     }
 
     function changePage(e) {
@@ -108,8 +108,8 @@ export default function ItemListFront(props) {
                                 :
                                 currentRecords.map((item, index) => (
                                     <div className="col-md-4">
-                                        <Link style={{textDecoration : 'none'}}>
-                                            <div className="card bg-dark fr-item-card" onClick={() => viewItem(item.id)}>
+                                        <Link style={{textDecoration : 'none'}} onClick={() => viewItem(item.id)}>
+                                            <div className="card bg-dark fr-item-card">
                                                 <img className="card-img-top fr-track-card-img" src={item.imageURL1} alt="No image" />
                                                 <div className="card-body">
                                                     <h5 align="left">{item.name}</h5>
