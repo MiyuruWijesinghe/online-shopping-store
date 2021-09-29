@@ -52,8 +52,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showAdminBoard: user.role.includes("ROLE_ADMIN"),
-        showSellerBoard: user.role.includes("ROLE_SELLER")
+        showAdminBoard: user.role.includes("ADMIN"),
+        showSellerBoard: user.role.includes("SELLER")
       });
     }
   }

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import Select from "react-select";
 import CheckButton from "react-validation/build/button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { isEmail } from "validator";
+
+
 
 import AuthService from "../../services/auth.service";
 
@@ -61,7 +64,9 @@ export default class Register extends Component {
         this.onChangeAddress2 = this.onChangeAddress2.bind(this);
         this.onChangeAddress3 = this.onChangeAddress3.bind(this);
         this.onChangePhone = this.onChangePhone.bind(this);
-
+        this.onChangeNic = this.onChangeNic.bind(this);
+        this.onChangeDob = this.onChangeDob.bind(this);
+        this.customTheme = this.customTheme.bind(this);
 
         this.state = {
             userName: "",
@@ -76,8 +81,26 @@ export default class Register extends Component {
             phoneNumber: "",
             successful: false,
             message: "",
-            conferenceId: "1"
+            conferenceId: "1",
+            dob: "",
+            nic: "",
+            role: "BUYER",
         };
+    }
+    customTheme(theme) {
+        return {
+            ...theme,
+            colors: {
+                ...theme.colors,
+                primary25: 'orange'
+            }
+        }
+    }
+
+    onSelect(e) {
+        this.setState({
+            role: e.value
+        });
     }
 
     onChangeUsername(e) {
@@ -140,6 +163,18 @@ export default class Register extends Component {
         });
     }
 
+    onChangeNic(e) {
+        this.setState({
+            nic: e.target.value
+        });
+    }
+
+    onChangeDob(e) {
+        this.setState({
+            dob: e.target.value
+        });
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -152,8 +187,8 @@ export default class Register extends Component {
 
         if (this.checkBtn.context._errors.length === 0) {
             AuthService.register(
-                this.props.match.params.name,
-                this.state.title,
+                this.state.role,
+                //this.props.match.params.name,
                 this.state.firstName,
                 this.state.lastName,
                 this.state.addressLine1,
@@ -163,7 +198,11 @@ export default class Register extends Component {
                 this.state.userName,
                 this.state.conferenceId,
                 this.state.email,
-                this.state.password
+                this.state.password,
+                this.state.dob,
+                this.state.nic,
+
+
             ).then(
                 response => {
                     this.setState({
@@ -188,11 +227,16 @@ export default class Register extends Component {
         }
     }
 
+
     render() {
+        const options = [
+            { value: 'BUYER', label: 'BUYER' },
+            { value: 'SELLER', label: 'SELLER' }
+        ]
         return (
             <div className="container">
-                <div className="card bg-dark" style={{width : '50%', marginTop: '10px', borderRadius: '5px', color : 'white'}}>
-                    <div className="card-header" style={{color : 'white'}}>
+                <div className="card bg-dark" style={{ width: '50%', marginTop: '10px', borderRadius: '5px', color: 'white' }}>
+                    <div className="card-header" style={{ color: 'white' }}>
                         <h4>Signup</h4>
                     </div>
                     <div className="card-body">
@@ -211,6 +255,15 @@ export default class Register extends Component {
                             {!this.state.successful && (
                                 <div>
                                     <div className="form-group">
+                                        <label htmlFor="attributeId" >Role</label>
+                                        <div className="form-group row">
+
+                                            <div className="col-sm-5">
+                                                <Select options={options} onChange={(e) => this.onSelect(e)} single autoFocus isSearchable theme={this.customTheme} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
                                         <label htmlFor="username">Username</label>
                                         <Input
                                             type="text"
@@ -219,17 +272,6 @@ export default class Register extends Component {
                                             value={this.state.userName}
                                             onChange={this.onChangeUsername}
                                             validations={[required, vusername]}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="title">Title</label>
-                                        <Input
-                                            type="text"
-                                            className="form-control"
-                                            name="title"
-                                            value={this.state.title}
-                                            onChange={this.onChangeTitle}
-                                            validations={[required]}
                                         />
                                     </div>
 
@@ -273,7 +315,7 @@ export default class Register extends Component {
                                             name="addressLine2"
                                             value={this.state.addressLine2}
                                             onChange={this.onChangeAddress2}
-                                            validations={[required]}
+                                        //validations={[required]}
                                         />
                                         <Input
                                             type="text"
@@ -281,7 +323,7 @@ export default class Register extends Component {
                                             name="addressLine3"
                                             value={this.state.addressLine3}
                                             onChange={this.onChangeAddress3}
-                                            validations={[required]}
+                                        //validations={[required]}
                                         />
                                     </div>
 
@@ -296,6 +338,29 @@ export default class Register extends Component {
                                             validations={[required]}
                                         />
                                     </div>
+                                    <div className="form-group">
+                                        <label htmlFor="nic">NIC (OLD)</label>
+                                        <Input
+                                            type="text"
+                                            className="form-control"
+                                            name="nic"
+                                            value={this.state.nic}
+                                            onChange={this.onChangeNic}
+                                            validations={[required]}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="dob">Date Of Birth</label>
+                                        <Input
+                                            type="date"
+                                            className="form-control"
+                                            name="dob"
+                                            value={this.state.dob}
+                                            onChange={this.onChangeDob}
+                                            validations={[required]}
+                                        />
+                                    </div>
+
                                     <div className="form-group">
                                         <label htmlFor="email">Email</label>
                                         <Input

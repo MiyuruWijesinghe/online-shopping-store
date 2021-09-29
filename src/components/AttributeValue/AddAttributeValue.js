@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import AdminSideNav from "../Navbar/AdminSideNav";
 import axios from "axios";
 import Select from "react-select";
@@ -27,15 +27,15 @@ export default function AddAttributeValue(props) {
     }
 
     useEffect(() => {
-        if(attributeList.length > 0) {
+        if (attributeList.length > 0) {
             setOptionValues();
         }
     }, [attributeList])
 
     function setOptionValues() {
         const gotOptions = attributeList.map((attribute, index) => ({
-            value : attribute.id,
-            label : attribute.name
+            value: attribute.id,
+            label: attribute.name
         }))
         setOptionsList(gotOptions)
     }
@@ -51,18 +51,18 @@ export default function AddAttributeValue(props) {
             name,
             status
         }
-        axios.post("https://shopping-backend-api.herokuapp.com/attribute-value/save", dataObject, {headers: authHeader()}).then((res) => {
+        axios.post("https://shopping-backend-api.herokuapp.com/attribute-value/save", dataObject, { headers: authHeader() }).then((res) => {
             console.log(dataObject);
             alert(res.data.messages);
             props.history.push("/attribute-values");
         }).catch((err) => {
-            if(err.response.data.name !== undefined) {
+            if (err.response.data.name !== undefined) {
                 alert(err.response.data.name);
-            } else if(err.response.data.status !== undefined) {
+            } else if (err.response.data.status !== undefined) {
                 alert(err.response.data.status);
-            } else if(err.response.data.attributeId !== undefined) {
+            } else if (err.response.data.attributeId !== undefined) {
                 alert(err.response.data.attributeId);
-            } else if(err.response.data.message !== undefined) {
+            } else if (err.response.data.message !== undefined) {
                 alert(err.response.data.message);
             } else {
                 alert(err);
@@ -81,7 +81,7 @@ export default function AddAttributeValue(props) {
     }
 
     function customTheme(theme) {
-        return{
+        return {
             ...theme,
             colors: {
                 ...theme.colors,
@@ -90,11 +90,11 @@ export default function AddAttributeValue(props) {
         }
     }
 
-    return(
+    return (
         <div className="main">
             <AdminSideNav />
             <div className="container dark-form-main">
-                <br/>
+                <br />
                 <div className="card dark-card">
                     <div className="card-header dark-card-header">
                         <h4>Attribute Value</h4>
@@ -106,19 +106,19 @@ export default function AddAttributeValue(props) {
                                 <div className="col-sm-5">
                                     <Select options={optionsList} onChange={(e) => onSelect(e)} id="attributeId" placeholder="Select Attribute" single autoFocus isSearchable theme={customTheme} />
                                 </div>
-                            </div><br/>
+                            </div><br />
                             <div className="form-group row">
                                 <label htmlFor="name" className="col-sm-3 lg-wh">Name</label>
                                 <div className="col-sm-5">
-                                    <input type="text" onChange={(e) => setName(e.target.value)} className="form-control" id="name" placeholder="Enter Name" required/>
+                                    <input type="text" onChange={(e) => setName(e.target.value)} className="form-control" id="name" placeholder="Enter Name" required />
                                 </div>
-                            </div><br/>
+                            </div><br />
                             <div className="form-group row">
                                 <label htmlFor="status" className="col-sm-3 lg-wh">Status</label>
                                 <div className="col-sm-5">
                                     <Switch checked={checked} onChange={handleStatus} id="status" /> {checked ? <label className="lg-wh">Active</label> : <label className="lg-wh">Inactive</label>}
                                 </div>
-                            </div><br/>
+                            </div><br />
                             <button type="submit" className="btn btn-primary">Save</button>
                         </form>
                     </div>
