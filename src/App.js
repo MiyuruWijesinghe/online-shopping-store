@@ -6,7 +6,6 @@ import "./styles/dashboard-styles.css";
 import "./styles/footer-styles.css";
 import "./styles/common-styles.css";
 import "./styles/slide-show.css";
-import "./styles/item-slide-show.css";
 import cartImage from "./images/shopping.jpg";
 
 import AuthService from "./services/auth.service";
