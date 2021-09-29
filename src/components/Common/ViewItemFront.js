@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
+import SlideShow from "./SlideShow";
+import ItemSlideShow from "./ItemSlideShow";
 
 export default function ViewItemFront(props) {
 
@@ -38,8 +40,9 @@ export default function ViewItemFront(props) {
                     <div className="row justify-content-center">
                         <div className="col-auto">
                             <div className="card bg-dark fr-work-card">
-                                <center><h5>{data.name}</h5></center><br/>
-                                <center><img className="card-img-top fr-work-card-img" src={data.imageURL1} alt="No image"/></center>
+                                <h5>{data.name}</h5><br/>
+                                <img className="card-img-top fr-work-card-img" src={data.imageURL1} alt="No image"/>
+                                <ItemSlideShow/>
                                 <div className="card-body">
                                     <h6>{data.description}</h6><br/>
                                 </div>
