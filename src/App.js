@@ -131,68 +131,68 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand" ><img src={cartImage} style={{height: '50px', width: '50px'}}/>&nbsp; <b>BuyTNow</b></Link>
+          <Link to={"/"} className="navbar-brand" ><img src={cartImage} style={{ height: '50px', width: '50px' }} />&nbsp; <b>BuyTNow</b></Link>
           <div className="navbar-nav mr-auto">
 
             {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link" ><i className="fa fa-user-secret"></i>&nbsp; Admin</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link" ><i className="fa fa-user-secret"></i>&nbsp; Admin</Link>
+              </li>
             )}
 
             {showEditorBoard && (
-                <li className="nav-item">
-                  <Link to={"/editor"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Editor</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/editor"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Editor</Link>
+              </li>
             )}
 
             {showResearcherBoard && (
-                <li className="nav-item">
-                  <Link to={"/researcher"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Researcher</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/researcher"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Researcher</Link>
+              </li>
             )}
 
             {showReviewerBoard && (
-                <li className="nav-item">
-                  <Link to={"/reviewer"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Reviewer</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/reviewer"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Reviewer</Link>
+              </li>
             )}
 
             {showWorkshopBoard && (
-                <li className="nav-item">
-                  <Link to={"/workshop-conductor"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Workshop Conductor</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/workshop-conductor"} className="nav-link" ><i className="fa fa-user-circle-o"></i>&nbsp; Workshop Conductor</Link>
+              </li>
             )}
 
           </div>
 
           {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={ "/profile" } className="nav-link">
-                    <i className="fa fa-user"></i>&nbsp; {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/home" className="nav-link" onClick={this.logOut}>
-                    &nbsp; LogOut
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="/home" className="nav-link">
-                    <i className="fa fa-shopping-cart"></i>&nbsp; Cart
-                  </a>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  <i className="fa fa-user"></i>&nbsp; {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/home" className="nav-link" onClick={this.logOut}>
+                  &nbsp; LogOut
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/home" className="nav-link">
+                  <i className="fa fa-shopping-cart"></i>&nbsp; Cart
+                </a>
+              </li>
+            </div>
           ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/"} className="nav-link">Register</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">Login</Link>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">Register</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">Login</Link>
+              </li>
+            </div>
           )}
         </nav>
 
@@ -200,7 +200,7 @@ class App extends Component {
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/register/:name" component={Register} />
+            <Route path="/register" component={Register} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/editor" component={EditorDashboard} />
             <Route path="/reviewer" component={ReviewerDashboard} />
