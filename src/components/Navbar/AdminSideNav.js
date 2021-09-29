@@ -18,7 +18,6 @@ export class AdminSideNav extends Component {
                     <a href="/items-admin"><i className="fa fa-shopping-cart"></i>&nbsp; Item</a>
                     <a href="/researches-admin"><i className="fa fa-file-text-o"></i>&nbsp; Reports</a>
                     <a href="/roles"><i className="fa fa-users"></i>&nbsp; Admins</a>
-                    <a href="/roles"><i className="fa fa-sliders"></i>&nbsp; Roles</a>
                 </div>
             </div>
         );
