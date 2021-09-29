@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://icaf-backend.herokuapp.com/auth/";
+const API_URL = "https://shopping-backend-api.herokuapp.com/auth/";
 
 class AuthService {
   login(userName, password) {
@@ -22,10 +22,9 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(roleName, title, firstName, lastName, addressLine1, addressLine2, addressLine3, phoneNumber, userName, conferenceId, email, password) {
+  register(roleName, firstName, lastName, addressLine1, addressLine2, addressLine3, phoneNumber, userName, conferenceId, email, password, dob, nic) {
     return axios.post(API_URL + "signup", {
       roleName,
-      title,
       firstName,
       lastName,
       addressLine1,
@@ -35,7 +34,9 @@ class AuthService {
       conferenceId,
       userName,
       email,
-      password
+      password,
+      dob,
+      nic
     });
   }
 

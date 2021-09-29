@@ -53,8 +53,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showAdminBoard: user.role.includes("ROLE_ADMIN"),
-        showSellerBoard: user.role.includes("ROLE_SELLER")
+        showAdminBoard: user.role.includes("ADMIN"),
+        showSellerBoard: user.role.includes("SELLER")
       });
     }
   }
@@ -70,50 +70,50 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand" ><img src={cartImage} style={{height: '50px', width: '50px'}}/>&nbsp; <b>BuyTNow</b></Link>
+          <Link to={"/"} className="navbar-brand" ><img src={cartImage} style={{ height: '50px', width: '50px' }} />&nbsp; <b>BuyTNow</b></Link>
           <div className="navbar-nav mr-auto">
 
             {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link" ><i className="fa fa-user-secret"></i>&nbsp; Admin</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link" ><i className="fa fa-user-secret"></i>&nbsp; Admin</Link>
+              </li>
             )}
 
             {showSellerBoard && (
-                <li className="nav-item">
-                  <Link to={"/seller"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Seller</Link>
-                </li>
+              <li className="nav-item">
+                <Link to={"/seller"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Seller</Link>
+              </li>
             )}
 
           </div>
 
           {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={ "/profile" } className="nav-link">
-                    <i className="fa fa-user"></i>&nbsp; {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/home" className="nav-link" onClick={this.logOut}>
-                    &nbsp; LogOut
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="/home" className="nav-link">
-                    <i className="fa fa-shopping-cart"></i>&nbsp; Cart
-                  </a>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  <i className="fa fa-user"></i>&nbsp; {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/home" className="nav-link" onClick={this.logOut}>
+                  &nbsp; LogOut
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/home" className="nav-link">
+                  <i className="fa fa-shopping-cart"></i>&nbsp; Cart
+                </a>
+              </li>
+            </div>
           ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/"} className="nav-link">Register</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">Login</Link>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">Register</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">Login</Link>
+              </li>
+            </div>
           )}
         </nav>
 
@@ -121,7 +121,7 @@ class App extends Component {
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/register/:name" component={Register} />
+            <Route path="/register" component={Register} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/seller" component={SellerDashboard} />
             <Route path="/categories-admin" component={CategoryList} />
