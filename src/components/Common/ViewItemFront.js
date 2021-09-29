@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
+import ItemSlideShow from "./ItemSlideShow";
+import Rating from '@material-ui/lab/Rating';
 
 export default function ViewItemFront(props) {
 
@@ -9,12 +11,16 @@ export default function ViewItemFront(props) {
         id: "",
         name: "",
         description: "",
+        price: "",
+        discount: "",
         imageURL1:"",
         imageURL2:"",
         imageURL3:"",
         imageURL4:"",
         imageURL5:"",
-    })
+    });
+    const [finalPrice, setFinalPrice] = useState("");
+    const [attributeData, setAttributeData] = useState([]);
 
     useEffect(() => {
         getItem();
@@ -30,6 +36,31 @@ export default function ViewItemFront(props) {
         })
     }
 
+    useEffect(() => {
+        calculateFinalPrice();
+    }, null)
+
+    function calculateFinalPrice() {
+        const itemPrice = (Math.round(data.price * 100) / 100).toFixed(2);
+        const itemDiscount = (Math.round(data.discount * 100) / 100).toFixed(2);
+        const finalAmount = itemPrice - itemDiscount;
+        setFinalPrice((Math.round(finalAmount * 100) / 100).toFixed(2));
+    }
+
+    useEffect(() => {
+        getItemAttributeValues();
+    }, [])
+
+    function getItemAttributeValues() {
+        const itemId = props.match.params.id;
+        axios.get("https://shopping-backend-api.herokuapp.com/item-attribute-value/item/"+itemId).then((res) => {
+            console.log(res.data);
+            setAttributeData(res.data);
+        }).catch((err) => {
+            alert(err);
+        })
+    }
+
     return(
         <div>
             <Header/>
@@ -38,10 +69,43 @@ export default function ViewItemFront(props) {
                     <div className="row justify-content-center">
                         <div className="col-auto">
                             <div className="card bg-dark fr-work-card">
-                                <center><h5>{data.name}</h5></center><br/>
-                                <center><img className="card-img-top fr-work-card-img" src={data.imageURL1} alt="No image"/></center>
-                                <div className="card-body">
-                                    <h6>{data.description}</h6><br/>
+                                <div className="row ">
+                                    <div className="col">
+                                        <ItemSlideShow
+                                            itemImage1={data.imageURL1}
+                                            itemImage2={data.imageURL2}
+                                            itemImage3={data.imageURL3}
+                                            itemImage4={data.imageURL4}
+                                            itemImage5={data.imageURL5}
+                                        />
+                                    </div>
+                                    <div className="col">
+                                        <h5 style={{textAlign: 'justify', textJustify: 'inter-word'}}>{data.name}</h5><br/>
+                                        <p style={{textAlign: 'justify'}}><Rating name="half-rating-read" defaultValue={2} precision={0.5} readOnly /></p>
+                                        <p style={{textAlign: 'justify'}}>2 Ratings</p><br/>
+                                        <h6 style={{textAlign: 'justify', textJustify: 'inter-word'}}>{data.description}</h6><br/>
+                                        <h4 style={{textAlign: 'justify', textJustify: 'inter-word', color: 'yellow'}}>Rs.&nbsp; {finalPrice}</h4><br/>
+                                        <strike><h4 style={{textAlign: 'justify', textJustify: 'inter-word', color: 'grey'}}>Rs.&nbsp; {(Math.round(data.price * 100) / 100).toFixed(2)}</h4></strike><br/>
+
+                                        {
+                                            attributeData.length === 0 ?
+                                                    <div className="col-auto">
+                                                        <p className="home-h1">No Records Available</p>
+                                                    </div>
+                                                :
+                                                attributeData.map((attribute, index) => (
+                                                    <div>
+                                                        <p style={{textAlign: 'justify'}}>{attribute.attributeName} : {attribute.attributeValue}</p>
+                                                    </div>
+                                                ))
+                                        }
+
+                                        <div style={{textAlign: 'justify'}}>
+                                            <button className="btn btn-success">Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
+                                            <button className="btn btn-primary">Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                        <br/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
