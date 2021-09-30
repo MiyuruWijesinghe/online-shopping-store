@@ -6,6 +6,7 @@ import "./styles/dashboard-styles.css";
 import "./styles/footer-styles.css";
 import "./styles/common-styles.css";
 import "./styles/slide-show.css";
+import "./styles/reportlist-styles.css";
 import cartImage from "./images/shopping.jpg";
 
 import AuthService from "./services/auth.service";
@@ -36,6 +37,7 @@ import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttribu
 import CategoryListFront from "./components/Common/CategoryListFront";
 import ItemListFront from "./components/Common/ItemListFront";
 import ViewItemFront from "./components/Common/ViewItemFront";
+import AdminReports from "./components/Reports/ReporsList"
 
 class App extends Component {
   constructor(props) {
@@ -148,6 +150,7 @@ class App extends Component {
             <Route path="/common-categories" component={CategoryListFront} />
             <Route path="/common-items/:id" component={ItemListFront} />
             <Route path="/view-item/:id" component={ViewItemFront} />
+            <Route path="/admin-report" component={AdminReports} />
 
           </Switch>
         </div>
