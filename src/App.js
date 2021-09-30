@@ -14,6 +14,9 @@ import Login from "./components/Common/Login";
 import Register from "./components/Common/Register";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import SellerDashboard from "./components/Dashboard/SellerDashboard";
+import BuyerDashboard from "./components/Dashboard/BuyerDashboard";
+import BuyerProfile from "./components/Common/BuyerProfile";
+import BuyerUpdateProfile from "./components/Common/BuyerUpdateProfile";
 import CategoryList from "./components/Category/CategoryList";
 import AddCategory from "./components/Category/AddCategory";
 import ViewCategory from "./components/Category/ViewCategory";
@@ -123,6 +126,9 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/seller" component={SellerDashboard} />
+            <Route path="/buyer" component={BuyerDashboard} />
+            <Route path="/buyer-profile" component={BuyerProfile} />
+            <Route path="/buyer-update-profile" component={BuyerUpdateProfile} />
             <Route path="/categories-admin" component={CategoryList} />
             <Route path="/category/add" component={AddCategory} />
             <Route path="/category-admin/:id" component={ViewCategory} />

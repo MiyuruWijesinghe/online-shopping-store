@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
+import authService from "../../services/auth.service";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default function BuyerProfile(props) {
@@ -26,7 +27,8 @@ export default function BuyerProfile(props) {
     }, [])
 
     function getBuyer() {
-        axios.get("http://localhost:5000/auth/buyer/Menu").then((res) => {
+        const username = authService.getCurrentUser().username;
+        axios.get("http://localhost:5000/auth/buyer/" + username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);
@@ -66,7 +68,7 @@ export default function BuyerProfile(props) {
                         <Col>{data.email}</Col>
                     </Row><br/>
                     <Row>
-                        <Col><Button href="./buyer-update-profile" size="lg">Update</Button></Col>
+                        <Col><Button href="./buyer-update-profile"> Go to Update</Button></Col>
                     </Row>
                 </Container>
             </div>
