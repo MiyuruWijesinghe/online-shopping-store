@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 
-export default function Header() {
+export default function Header(props) {
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark justify-content-center">
@@ -17,6 +17,9 @@ export default function Header() {
                     </li>
                     <li className="nav-item nav-item-pad">
                         <Link to={"/common-news"} className="nav-link" >About Us</Link>
+                    </li>
+                    <li className="nav-item nav-item-pad">
+                        <Link to={"/"} className="nav-link" ><i className="fa fa-shopping-cart"></i>&nbsp; Cart ({props.cartSize})</Link>
                     </li>
                 </div>
             </nav>

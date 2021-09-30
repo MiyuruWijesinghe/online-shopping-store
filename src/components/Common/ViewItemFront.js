@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ItemSlideShow from "./ItemSlideShow";
 import Rating from '@material-ui/lab/Rating';
+import ProceedOrder from "./ProceedOrder";
 
 export default function ViewItemFront(props) {
 
@@ -61,9 +62,28 @@ export default function ViewItemFront(props) {
         })
     }
 
+    function placeOrder() {
+        //props.history.push("/order")
+        return(
+            <ProceedOrder itemName={data.name}/>
+        )
+    }
+
+    /********
+     * cart
+     */
+
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (product) => {
+        setCart([...cart, product]);
+        alert('Item added to cart.');
+        console.log(product);
+    }
+
     return(
         <div>
-            <Header/>
+            <Header cartSize={cart.length}/>
             <div className="card py-5 border-0 px-0 mx-0 front-image">
                 <div className="card-body text-center">
                     <div className="row justify-content-center">
@@ -101,8 +121,8 @@ export default function ViewItemFront(props) {
                                         }
 
                                         <div style={{textAlign: 'justify'}}>
-                                            <button className="btn btn-success">Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
-                                            <button className="btn btn-primary">Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
+                                            <button className="btn btn-success" onClick={placeOrder}>Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
+                                            <button className="btn btn-primary" onClick={() => addToCart(data)}>Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
                                         </div>
                                         <br/>
                                     </div>
