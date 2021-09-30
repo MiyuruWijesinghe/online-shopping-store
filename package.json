@@ -12,6 +12,8 @@
     "bootstrap": "4.6.0",
     "date-fns": "^2.22.1",
     "firebase": "^8.6.1",
+    "jspdf": "^2.4.0",
+    "jspdf-autotable": "^3.5.20",
     "react": "^16.13.0",
     "react-bootstrap": "^1.6.0",
     "react-bootstrap-table-next": "^4.0.3",
