@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import Cart from "./Cart";
 
-export default function Header(props) {
+export default function Header() {
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark justify-content-center">
@@ -19,10 +20,11 @@ export default function Header(props) {
                         <Link to={"/common-news"} className="nav-link" >About Us</Link>
                     </li>
                     <li className="nav-item nav-item-pad">
-                        <Link to={"/"} className="nav-link" ><i className="fa fa-shopping-cart"></i>&nbsp; Cart ({props.cartSize})</Link>
+                        <Link data-toggle="modal" data-target="#myModal" className="nav-link" ><i className="fa fa-shopping-cart"></i>&nbsp; Cart</Link>
                     </li>
                 </div>
             </nav>
+            <Cart/>
         </div>
     )
 }
