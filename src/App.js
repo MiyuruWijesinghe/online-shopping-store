@@ -17,6 +17,9 @@ import EditorDashboard from "./components/Dashboard/EditorDashboard";
 import ReviewerDashboard from "./components/Dashboard/ReviewerDashboard";
 import ResearcherDashboard from "./components/Dashboard/ResearcherDashboard";
 import WorkshopConductorDashboard from "./components/Dashboard/WorkshopConductorDashboard";
+import BuyerDashboard from "./components/Dashboard/BuyerDashboard";
+import BuyerProfile from "./components/Common/BuyerProfile";
+import BuyerUpdateProfile from "./components/Common/BuyerUpdateProfile";
 import RoleList from "./components/Roles/RoleList";
 import AddRole from "./components/Roles/AddRole";
 import ViewRole from "./components/Roles/ViewRole";
@@ -206,6 +209,9 @@ class App extends Component {
             <Route path="/reviewer" component={ReviewerDashboard} />
             <Route path="/researcher" component={ResearcherDashboard} />
             <Route path="/workshop-conductor" component={WorkshopConductorDashboard} />
+            <Route path="/buyer" component={BuyerDashboard} />
+            <Route path="/buyer-profile" component={BuyerProfile} />
+            <Route path="/buyer-update-profile" component={BuyerUpdateProfile} />
             <Route path="/roles" component={RoleList} />
             <Route path="/role/add" component={AddRole} />
             <Route path="/role/:id" component={ViewRole} />
