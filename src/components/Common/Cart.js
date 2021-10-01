@@ -5,13 +5,7 @@ import AuthService from "../../services/auth.service";
 
 export default function Cart(props) {
 
-    const [attributeValueList, setAttributeValueList] = useState([]);
-    const [attributeValueOptionsList, setAttributeValueOptionsList] = useState([]);
     const [itemId, setItemId] = useState("");
-    const [itemName, setItemName] = useState("");
-    const [attributeValueId, setAttributeValueId] = useState("");
-    const [status, setStatus] = useState("INACTIVE");
-
     const [cartItemList, setCartItemList] = useState([]);
 
     useEffect(() => {
@@ -46,55 +40,10 @@ export default function Cart(props) {
         }
     }
 
-    useEffect(() => {
-        getItem();
-    }, [])
-
-    function getItem() {
-        //const itemId = props.match.params.id;
-        axios.get("https://shopping-backend-api.herokuapp.com/item/"+1).then((res) => {
-            console.log(res.data);
-            setItemId(res.data.id);
-            setItemName(res.data.name);
-        }).catch((err) => {
-            alert(err);
-        })
-    }
-
-    useEffect(() => {
-        getAttributeValues();
-    }, [])
-
-    function getAttributeValues() {
-        axios.get("https://shopping-backend-api.herokuapp.com/attribute-value/status/ACTIVE").then((res) => {
-            setAttributeValueList(res.data);
-        }).catch((err) => {
-            alert(err);
-        })
-    }
-
-    useEffect(() => {
-        if(attributeValueList.length > 0) {
-            setAttributeValueOptionValues();
-        }
-    }, [attributeValueList])
-
-    function setAttributeValueOptionValues() {
-        const gotOptions = attributeValueList.map((attributeValue, index) => ({
-            value : attributeValue.id,
-            label : attributeValue.name
-        }))
-        setAttributeValueOptionsList(gotOptions)
-    }
-
-
-
     function submit(e) {
         e.preventDefault();
         const dataObject = {
-            itemId,
-            attributeValueId,
-            status
+            itemId
         }
         axios.post("https://shopping-backend-api.herokuapp.com/item-attribute-value/save", dataObject, {headers: authHeader()}).then((res) => {
             console.log(dataObject);
