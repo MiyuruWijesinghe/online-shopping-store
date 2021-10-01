@@ -5,7 +5,6 @@ import AuthService from "../../services/auth.service";
 
 export default function Cart(props) {
 
-    const [itemId, setItemId] = useState("");
     const [cartItemList, setCartItemList] = useState([]);
 
     useEffect(() => {
@@ -14,11 +13,11 @@ export default function Cart(props) {
 
     function getCartItems() {
         const user = AuthService.getCurrentUser();
-        let userName = "user";
+        let uname = "user";
         if(user != null) {
-            userName = user.username;
+            uname = user.username;
         }
-        axios.get("https://shopping-backend-api.herokuapp.com/cart/username/"+userName).then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/cart/username/"+uname).then((res) => {
             console.log(res.data);
             setCartItemList(res.data);
         }).catch((err) => {
@@ -40,28 +39,8 @@ export default function Cart(props) {
         }
     }
 
-    function submit(e) {
-        e.preventDefault();
-        const dataObject = {
-            itemId
-        }
-        axios.post("https://shopping-backend-api.herokuapp.com/item-attribute-value/save", dataObject, {headers: authHeader()}).then((res) => {
-            console.log(dataObject);
-            alert(res.data.messages);
-
-        }).catch((err) => {
-            if(err.response.data.itemId !== undefined) {
-                alert(err.response.data.itemId);
-            } else if(err.response.data.attributeValueId !== undefined) {
-                alert(err.response.data.attributeValueId);
-            } else if(err.response.data.status !== undefined) {
-                alert(err.response.data.status);
-            } else if(err.response.data.message !== undefined) {
-                alert(err.response.data.message);
-            } else {
-                alert(err);
-            }
-        })
+    function proceedCart() {
+        props.history.push("/order")
     }
 
     return(
@@ -76,7 +55,7 @@ export default function Cart(props) {
                                 <button type="button" className="btn btn-danger" data-dismiss="modal">X</button>
                             </div>
                             <div className="modal-body">
-                                <form onSubmit={(e) => submit(e)}>
+                                <form onSubmit={proceedCart}>
                                     <div className="row">
                                         <div className="col">
                                             <p style={{textAlign: 'justify'}}><b>Item</b></p>
