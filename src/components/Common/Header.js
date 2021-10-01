@@ -24,7 +24,7 @@ export default function Header() {
                     </li>
                 </div>
             </nav>
-            <Cart/>
+            <Cart />
         </div>
     )
 }
