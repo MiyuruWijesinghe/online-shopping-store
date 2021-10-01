@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import authHeader from "../../services/auth-header";
 import AuthService from "../../services/auth.service";
+import Payment from "./Payment";
 
 export default function ProceedOrder(props) {
 
@@ -86,10 +87,12 @@ export default function ProceedOrder(props) {
         }
         axios.post("https://shopping-backend-api.herokuapp.com/orders/save", dataObject, {headers: authHeader()}).then((res) => {
             console.log(dataObject);
-            alert(res.data.messages);
+            alert('Order Saved Successfully.');
         }).catch((err) => {
             if(err.response.data.userName !== undefined) {
                 alert(err.response.data.userName);
+            } else if(err.response.data.deliveryCharge !== undefined) {
+                alert(err.response.data.deliveryCharge);
             } else if(err.response.data.message !== undefined) {
                 alert(err.response.data.message);
             } else {
@@ -103,6 +106,7 @@ export default function ProceedOrder(props) {
             <Header/>
             <div className="card py-5 border-0 px-0 mx-0 front-image">
                 <div className="card-body text-center">
+                    <Payment/>
                     <div className="row justify-content-center">
                         <form>
                             <div className="col-auto">
@@ -131,7 +135,7 @@ export default function ProceedOrder(props) {
                                     {
                                         cartItemList.length === 0 ?
                                             <div className="col-auto">
-                                                <p className="home-h1">No Orders.</p>
+                                                <p className="home-h1">No Items.</p>
                                             </div>
                                             :
                                             cartItemList.map((cartItem, index) => (
@@ -217,7 +221,7 @@ export default function ProceedOrder(props) {
                                         <div className="col">
                                         </div>
                                         <div className="col">
-                                            <button type="submit" className="btn btn-lg btn-success" onClick={(e) => submit(e)}><b>Proceed to Payment</b></button>
+                                            <button data-toggle="modal" data-target="#staticBackdrop" className="nav-link" type="submit" className="btn btn-lg btn-success" onClick={(e) => submit(e)}><b>Proceed to Payment</b></button>
                                         </div>
                                     </div>
                                 </div>

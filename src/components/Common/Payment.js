@@ -2,60 +2,72 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 import "../../styles/payment.css";
+import AuthService from "../../services/auth.service";
+import Invoice from "../Reports/Invoice";
 
-export default function Cart(props) {
+export default function Payment(props) {
 
-    const [itemId, setItemId] = useState("");
+    const [orderRefCode, setOrderRefCode] = useState("REF0001");
+    const [cardNumber, setCardNumber] = useState("");
+    const [cvCode, setCvCode] = useState("");
+    const [year, setYear] = useState("");
+    const [month, setMonth] = useState("");
+    const [amount, setAmount] = useState("50000.00");
     const [cartItemList, setCartItemList] = useState([]);
+
+    function generateInvoice() {
+        if(cartItemList.length === 0) {
+            alert('There are no items to generate invoice.');
+        } else {
+            Invoice(cartItemList);
+        }
+    }
 
     useEffect(() => {
         getCartItems();
     }, [])
 
     function getCartItems() {
-        // const user = AuthService.getCurrentUser();
-        // let userName = "user";
-        // if (user != null) {
-        //     userName = user.username;
-        // }
-        // axios.get("https://shopping-backend-api.herokuapp.com/cart/username/" + userName).then((res) => {
-        //     console.log(res.data);
-        //     setCartItemList(res.data);
-        // }).catch((err) => {
-        //     alert(err);
-        // })
-    }
-
-    function deleteCartItem(cartItemId) {
-        // if (window.confirm("Do you want to remove this item?")) {
-        //     axios.delete("https://shopping-backend-api.herokuapp.com/cart/" + cartItemId).then((res) => {
-        //         alert(res.data.messages);
-        //         const currentData = cartItemList.filter(cartItem => cartItem.id !== cartItemId);
-        //         setCartItemList(currentData);
-        //     }).catch((err) => {
-        //         alert(err);
-        //     })
-        // } else {
-        //     alert("Ok");
-        // }
+        const user = AuthService.getCurrentUser();
+        let uname = "user";
+        if (user != null) {
+            uname = user.username;
+        }
+        axios.get("https://shopping-backend-api.herokuapp.com/cart/username/" + uname).then((res) => {
+            console.log(res.data);
+            setCartItemList(res.data);
+        }).catch((err) => {
+            alert(err);
+        })
     }
 
     function submit(e) {
         e.preventDefault();
+        generateInvoice();
         const dataObject = {
-            itemId
+            orderRefCode,
+            cardNumber,
+            cvCode,
+            year,
+            month,
+            amount
         }
-        axios.post("https://shopping-backend-api.herokuapp.com/item-attribute-value/save", dataObject, { headers: authHeader() }).then((res) => {
+        axios.post("https://shopping-backend-api.herokuapp.com/payment/pay", dataObject, { headers: authHeader() }).then((res) => {
             console.log(dataObject);
             alert(res.data.messages);
-
         }).catch((err) => {
-            if (err.response.data.itemId !== undefined) {
-                alert(err.response.data.itemId);
-            } else if (err.response.data.attributeValueId !== undefined) {
-                alert(err.response.data.attributeValueId);
-            } else if (err.response.data.status !== undefined) {
-                alert(err.response.data.status);
+            if (err.response.data.orderRefCode !== undefined) {
+                alert(err.response.data.orderRefCode);
+            } else if (err.response.data.cardNumber !== undefined) {
+                alert(err.response.data.cardNumber);
+            } else if (err.response.data.cvCode !== undefined) {
+                alert(err.response.data.cvCode);
+            } else if (err.response.data.year !== undefined) {
+                alert(err.response.data.year);
+            } else if (err.response.data.month !== undefined) {
+                alert(err.response.data.month);
+            } else if (err.response.data.amount !== undefined) {
+                alert(err.response.data.amount);
             } else if (err.response.data.message !== undefined) {
                 alert(err.response.data.message);
             } else {
@@ -80,17 +92,19 @@ export default function Cart(props) {
                                     <div className="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
                                         <div className="mt-4 mx-4">
                                             <div className="text-center">
-                                                <h5>Credit card</h5>
+                                                <h5>Credit Card</h5>
                                             </div>
                                             <div className="form mt-3">
                                                 <div className="inputbox"> <input type="text" name="name" className="form-control" required="required" /> <span>Cardholder Name</span> </div>
-                                                <div className="inputbox"> <input type="number" name="name" min={16} max={16} className="form-control" required="required" /> <span>Card Number</span>  </div>
+                                                <div className="inputbox"> <input type="text" id="cardNumber" onChange={(e) => setCardNumber(e.target.value)} name="name" min={16} max={16} className="form-control" required="required" /> <span>Card Number</span>  </div>
                                                 <div className="d-flex flex-row">
-                                                    <div className="inputbox"> <input type="number" name="name" min={4} max={4} className="form-control" required="required" /> <span>Ex Year</span> </div>
-                                                    <div className="inputbox"> <input type="number" name="name" min={2} max={2} className="form-control" required="required" /> <span>Ex Month</span> </div>
-                                                    <div className="inputbox"> <input type="password" name="name" min={3} max={3} className="form-control" required="required" /> <span>CVV</span> </div>
+                                                    <div className="inputbox"> <input type="text" onChange={(e) => setYear(e.target.value)} name="name" min={4} max={4} className="form-control" required="required" /> <span>Ex Year</span> </div>
+                                                    <div className="inputbox"> <input type="text" onChange={(e) => setMonth(e.target.value)} name="name" min={2} max={2} className="form-control" required="required" /> <span>Ex Month</span> </div>
+                                                    <div className="inputbox"> <input type="text" onChange={(e) => setCvCode(e.target.value)} name="name" min={3} max={3} className="form-control" required="required" /> <span>CVV</span> </div>
                                                 </div>
-                                                <div className="px-5 pay"> <button className="btn btn-success btn-block">Pay</button> </div>
+                                                <div className="px-5 pay">
+                                                    <button className="btn btn-success btn-block" type="submit" onClick={(e) => submit(e)}>Pay</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
