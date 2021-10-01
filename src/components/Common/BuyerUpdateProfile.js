@@ -38,7 +38,7 @@ export default function BuyerUpdateProfile({props}) {
         console.log("submit function called");
         console.log(data.firstName);
 
-        axios.put("http://localhost:5000/auth/buyer/" + data.username, {
+        axios.put("https://shopping-backend-api.herokuapp.com/auth/buyer/" + data.username, {
             firstName: data.firstName,
             lastName: data.lastName,
             addressLine1: data.addressLine1,
@@ -60,7 +60,7 @@ export default function BuyerUpdateProfile({props}) {
 
     function getBuyer() {
         data.username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/auth/buyer/" + data.username).then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/auth/buyer/" + data.username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);

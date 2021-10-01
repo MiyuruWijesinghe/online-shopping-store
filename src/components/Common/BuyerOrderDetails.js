@@ -24,7 +24,7 @@ export default function BuyerOrderDetails(props) {
 
     function getBuyer() {
         data.username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/auth/buyer/" + data.username).then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/auth/buyer/" + data.username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);
@@ -33,7 +33,7 @@ export default function BuyerOrderDetails(props) {
 
     function getOrderDetails() {
         const referenceCode = props.match.params.id;
-        axios.get("http://localhost:5000/orders/referenceCode/" + referenceCode).then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/orders/referenceCode/" + referenceCode).then((res) => {
             setOrder(res.data);
         }).catch((err) => {
             alert(err);

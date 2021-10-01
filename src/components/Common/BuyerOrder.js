@@ -17,7 +17,7 @@ export default function BuyerOrder(props) {
 
     function getOrders() {
         data.username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/orders/username/ADMIN").then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/orders/username/" + data.username).then((res) => {
             setOrders(res.data);
         }).catch((err) => {
             alert(err);

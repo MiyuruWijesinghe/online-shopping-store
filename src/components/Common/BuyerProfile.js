@@ -28,7 +28,7 @@ export default function BuyerProfile(props) {
 
     function getBuyer() {
         data.username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/auth/buyer/" + data.username).then((res) => {
+        axios.get("https://shopping-backend-api.herokuapp.com/auth/buyer/" + data.username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);
