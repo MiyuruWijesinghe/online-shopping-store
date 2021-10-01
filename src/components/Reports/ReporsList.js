@@ -42,7 +42,7 @@ export default function AdminDashboard(props) {
 
                                 <div className="col-md-4">
                                     <div className="card-count conf">
-                                        <span className="count-name">Payment History</span>
+                                        <span className="count-name"></span>
                                         <center>
                                             <button className="btn btn-success">Generate Report</button>
                                         </center>
@@ -51,7 +51,7 @@ export default function AdminDashboard(props) {
 
                                 <div className="col-md-4">
                                     <div className="card-count conf">
-                                        <span className="count-name">Payment History</span>
+                                        <span className="count-name"></span>
                                         <center>
                                             <button className="btn btn-danger">Generate Report</button>
                                         </center>
@@ -63,7 +63,7 @@ export default function AdminDashboard(props) {
                             <div className="row ">
                                 <div className="col-md-4">
                                     <div className="card-count conf">
-                                        <span className="count-name">Payment History</span>
+                                        <span className="count-name"></span>
                                         <center>
                                             <button className="btn btn-warning">Generate Report</button>
                                         </center>
@@ -72,7 +72,7 @@ export default function AdminDashboard(props) {
 
                                 <div className="col-md-4">
                                     <div className="card-count conf">
-                                        <span className="count-name">Payment History</span>
+                                        <span className="count-name"></span>
                                         <center>
                                             <button className="btn btn-info">Generate Report</button>
                                         </center>
@@ -81,7 +81,7 @@ export default function AdminDashboard(props) {
 
                                 <div className="col-md-4">
                                     <div className="card-count conf">
-                                        <span className="count-name">Payment History</span>
+                                        <span className="count-name"></span>
                                         <center>
                                             <button className="btn btn-secondary">Generate Report</button>
                                         </center>
