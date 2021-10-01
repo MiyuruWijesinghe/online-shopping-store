@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
+import authService from "../../services/auth.service";
 
 export default function BuyerDashboard(props) {
+
+    const username = authService.getCurrentUser().username;
 
     return(
         <div className="main">
@@ -17,7 +20,7 @@ export default function BuyerDashboard(props) {
                                 <div><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
                             </div>
                             <div className="col">
-                                <h3 className="col" style={{color : 'white'}}>User Name</h3>
+                                <h3 className="col" style={{color : 'white'}}>{username}</h3>
                             </div>
                         </div>
                         <div className="container dark-boots-table">

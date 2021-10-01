@@ -7,6 +7,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 export default function BuyerProfile(props) {
 
     const [data, setData] = useState({
+        username: "",
         id: "",
         firstName: "",
         lastName: "",
@@ -17,7 +18,6 @@ export default function BuyerProfile(props) {
         status: "",
         nic: "",
         dob: "",
-        userName: "",
         email: "",
         password: ""
     })
@@ -27,8 +27,8 @@ export default function BuyerProfile(props) {
     }, [])
 
     function getBuyer() {
-        const username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/auth/buyer/" + username).then((res) => {
+        data.username = authService.getCurrentUser().username;
+        axios.get("http://localhost:5000/auth/buyer/" + data.username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);

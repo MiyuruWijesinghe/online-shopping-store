@@ -3,11 +3,12 @@ import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import authService from "../../services/auth.service";
+import authHeader from "../../services/auth-header";
 
 export default function BuyerUpdateProfile({props}) {
 
     const [data, setData] = useState({
-        username: "",
+        username:"",
         id: "",
         firstName: "",
         lastName: "",
@@ -18,7 +19,6 @@ export default function BuyerUpdateProfile({props}) {
         status: "",
         nic: "",
         dob: "",
-        userName: "",
         email: "",
         password: ""
     })
@@ -30,12 +30,31 @@ export default function BuyerUpdateProfile({props}) {
     function onSubmit(e) {
         e.preventDefault();
         console.log("submit function called");
-        console.log(data.username);
+        console.log(data.firstName);
+
+        axios.put("http://localhost:5000/auth/buyer/" + data.username, {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            addressLine1: data.addressLine1,
+            addressLine2: data.addressLine2,
+            addressLine3: data.addressLine3,
+            phoneNumber: data.phoneNumber,
+            status: data.status,
+            nic: data.nic,
+            dob: data.dob,
+            username: data.username,
+            email: data.email,
+            password: data.password
+        },  {headers: authHeader()}).then((res) => {
+            alert(res);
+        }).catch((err) => {
+            alert(err);
+        })
     }
 
     function getBuyer() {
-        const username = authService.getCurrentUser().username;
-        axios.get("http://localhost:5000/auth/buyer/" + username).then((res) => {
+        data.username = authService.getCurrentUser().username;
+        axios.get("http://localhost:5000/auth/buyer/" + data.username).then((res) => {
             setData(res.data);
         }).catch((err) => {
             alert(err);
@@ -53,31 +72,31 @@ export default function BuyerUpdateProfile({props}) {
                     <Form>
                         <Form.Group controlId="firstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" defaultValue={data.firstName}></Form.Control>
+                            <Form.Control type="text" onChange={(e) => (data.firstName=e.target.value)} defaultValue={data.firstName}></Form.Control>
                         </Form.Group>
                         <Form.Group controlId="lastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text" defaultValue={data.lastName}/>
+                            <Form.Control type="text" onChange={(e) => (data.lastName=e.target.value)} defaultValue={data.lastName}/>
                         </Form.Group>
                         <Form.Group controlId="email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control type="email" defaultValue={data.email}/>
+                            <Form.Control type="email" onChange={(e) => (data.email=e.target.value)} defaultValue={data.email}/>
                         </Form.Group>
                         <Form.Group controlId="addressLine1">
                             <Form.Label>Address Line 1</Form.Label>
-                            <Form.Control type="text" defaultValue={data.addressLine1}/>
+                            <Form.Control type="text" onChange={(e) => (data.addressLine1=e.target.value)} defaultValue={data.addressLine1}/>
                         </Form.Group>
                         <Form.Group controlId="addressLine2">
                             <Form.Label>Address Line 2</Form.Label>
-                            <Form.Control type="text" defaultValue={data.addressLine2}/>
+                            <Form.Control type="text" onChange={(e) => (data.addressLine2=e.target.value)} defaultValue={data.addressLine2}/>
                         </Form.Group>
                         <Form.Group controlId="addressLine3">
                             <Form.Label>Address Line 3</Form.Label>
-                            <Form.Control type="text" defaultValue={data.addressLine3}/>
+                            <Form.Control type="text" onChange={(e) => (data.addressLine3=e.target.value)} defaultValue={data.addressLine3}/>
                         </Form.Group>
                         <Form.Group controlId="phoneNumber">
                             <Form.Label>Mobile No</Form.Label>
-                            <Form.Control type="tel" defaultValue={data.phoneNumber}/>
+                            <Form.Control type="tel" onChange={(e) => (data.phoneNumber=e.target.value)} defaultValue={data.phoneNumber}/>
                         </Form.Group>
                         <Form.Group controlId="nic">
                             <Form.Label>NIC No</Form.Label>
@@ -87,7 +106,7 @@ export default function BuyerUpdateProfile({props}) {
                             <Form.Label>Date of Birth</Form.Label>
                             <Form.Control type="text" defaultValue={data.dob} disabled/>
                         </Form.Group>
-                        <Button type="submit" onClick={(e) => onSubmit(e)}>Update</Button>
+                        <Button type="submit" onClick={(e) => onSubmit(e)} href="./buyer-profile">Update</Button>
                     </Form>
                 </Col>
             </Container>
