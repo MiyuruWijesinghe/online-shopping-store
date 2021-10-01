@@ -32,6 +32,20 @@ export default function Cart(props) {
         })
     }
 
+    function deleteCartItem(cartItemId) {
+        if(window.confirm("Do you want to remove this item?")) {
+            axios.delete("https://shopping-backend-api.herokuapp.com/cart/"+cartItemId).then((res) => {
+                alert(res.data.messages);
+                const currentData = cartItemList.filter(cartItem =>  cartItem.id !== cartItemId);
+                setCartItemList(currentData);
+            }).catch((err) => {
+                alert(err);
+            })
+        } else {
+            alert("Ok");
+        }
+    }
+
     useEffect(() => {
         getItem();
     }, [])
@@ -164,7 +178,7 @@ export default function Cart(props) {
                                                         <p style={{textAlign: 'justify'}}>Rs. {(Math.round(cartItem.subTotal * 100) / 100).toFixed(2)}</p><br/>
                                                     </div>
                                                     <div className="col">
-                                                        <p style={{textAlign: 'justify'}}><button type="button" className="btn btn-sm btn-danger">X</button></p><br/>
+                                                        <p style={{textAlign: 'justify'}}><button type="button" className="btn btn-sm btn-danger" onClick={() => deleteCartItem(cartItem.id)}>X</button></p><br/>
                                                     </div>
                                                 </div>
                                             ))
