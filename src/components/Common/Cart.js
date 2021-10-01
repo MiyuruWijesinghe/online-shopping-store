@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
+import AuthService from "../../services/auth.service";
 
 export default function Cart(props) {
 
@@ -18,8 +19,12 @@ export default function Cart(props) {
     }, [])
 
     function getCartItems() {
-        //const itemId = props.match.params.id;
-        axios.get("https://shopping-backend-api.herokuapp.com/cart/username/"+"ADMIN").then((res) => {
+        const user = AuthService.getCurrentUser();
+        let userName = "user";
+        if(user != null) {
+            userName = user.username;
+        }
+        axios.get("https://shopping-backend-api.herokuapp.com/cart/username/"+userName).then((res) => {
             console.log(res.data);
             setCartItemList(res.data);
         }).catch((err) => {
@@ -178,7 +183,12 @@ export default function Cart(props) {
                                             <p style={{textAlign: 'justify'}}><b>Total</b></p>
                                         </div>
                                         <div className="col">
-                                            <p style={{textAlign: 'justify'}}><b>Rs. {(Math.round((cartItemList.reduce((a,v) =>  a = a + v.subTotal, 0)  * 100) / 100).toFixed(2))}</b></p>
+                                            {
+                                                cartItemList.length === 0 ?
+                                                    <p style={{textAlign: 'justify'}}><b>Rs. 0.00</b></p>
+                                                    :
+                                                    <p style={{textAlign: 'justify'}}><b>Rs. {(Math.round((cartItemList.reduce((a,v) =>  a = a + v.subTotal, 0)  * 100) / 100).toFixed(2))}</b></p>
+                                            }
                                         </div>
                                     </div><br/>
                                     <button type="submit" className="btn btn-success">Proceed to Checkout</button>
