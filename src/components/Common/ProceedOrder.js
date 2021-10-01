@@ -8,9 +8,11 @@ import AuthService from "../../services/auth.service";
 export default function ProceedOrder(props) {
 
     const [userName, setUserName] = useState("");
-    const [deliveryCharge, setDeliveryCharge] = useState(200);
+    const [deliveryAmount, setDeliveryAmount] = useState(200.00);
+    const [deliveryCharge, setDeliveryCharge] = useState("200.00");
     const [cartItemList, setCartItemList] = useState([]);
     const [userDetails, setUserDetails] = useState({});
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         getCartItems();
@@ -61,16 +63,26 @@ export default function ProceedOrder(props) {
         })
     }
 
+    useEffect(() => {
+        if(cartItemList.length > 0) {
+            setOrdersList();
+        }
+    }, [cartItemList])
+
+    function setOrdersList() {
+        const gotOrders = cartItemList.map((cart, index) => ({
+            itemId: cart.items.id,
+            quantity: cart.quantity
+        }))
+        setOrders(gotOrders)
+    }
+
     function submit(e) {
         e.preventDefault();
-        const cartObject = {
-            //itemId: itemId.toString(),
-            //quantity: qty.toString()
-        }
         const dataObject = {
             userName,
             deliveryCharge,
-            orders:[cartObject]
+            orders
         }
         axios.post("https://shopping-backend-api.herokuapp.com/orders/save", dataObject, {headers: authHeader()}).then((res) => {
             console.log(dataObject);
@@ -158,7 +170,7 @@ export default function ProceedOrder(props) {
                                             <p style={{textAlign: 'justify'}}><b>Delivery</b></p>
                                         </div>
                                         <div className="col">
-                                            <p style={{textAlign: 'justify'}}>Rs. {(Math.round(deliveryCharge * 100) / 100).toFixed(2)}</p>
+                                            <p style={{textAlign: 'justify'}}>Rs. {(Math.round(deliveryAmount * 100) / 100).toFixed(2)}</p>
                                         </div>
                                     </div><br/>
                                     <div className="row">
@@ -178,7 +190,7 @@ export default function ProceedOrder(props) {
                                                 cartItemList.length === 0 ?
                                                     <p style={{textAlign: 'justify'}}><b>Rs. 0.00</b></p>
                                                     :
-                                                    <p style={{textAlign: 'justify'}}><b>Rs. {(Math.round(((cartItemList.reduce((a,v) =>  a = a + v.subTotal, 0) + deliveryCharge)  * 100) / 100).toFixed(2))}</b></p>
+                                                    <p style={{textAlign: 'justify'}}><b>Rs. {(Math.round(((cartItemList.reduce((a,v) =>  a = a + v.subTotal, 0) + deliveryAmount)  * 100) / 100).toFixed(2))}</b></p>
                                             }
                                         </div>
                                     </div><br/>
