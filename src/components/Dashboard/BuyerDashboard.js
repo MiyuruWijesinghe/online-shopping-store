@@ -34,7 +34,7 @@ export default function BuyerDashboard(props) {
                                     </a>
                                 </div>
                                 <div className="col-md-3">
-                                    <a href="/profile">
+                                    <a href="/buyer-orders">
                                         <div className="card-counter conf">
                                             <i className="fa fa-gift"></i>
                                             <div className="card-body"><span className="count-name">Orders</span></div>

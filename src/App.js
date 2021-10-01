@@ -19,6 +19,8 @@ import SellerDashboard from "./components/Dashboard/SellerDashboard";
 import BuyerDashboard from "./components/Dashboard/BuyerDashboard";
 import BuyerProfile from "./components/Common/BuyerProfile";
 import BuyerUpdateProfile from "./components/Common/BuyerUpdateProfile";
+import BuyerOrder from "./components/Common/BuyerOrder";
+import BuyerOrderDetails from "./components/Common/BuyerOrderDetails";
 import CategoryList from "./components/Category/CategoryList";
 import AddCategory from "./components/Category/AddCategory";
 import ViewCategory from "./components/Category/ViewCategory";
@@ -128,6 +130,8 @@ class App extends Component {
             <Route path="/buyer" component={BuyerDashboard} />
             <Route path="/buyer-profile" component={BuyerProfile} />
             <Route path="/buyer-update-profile" component={BuyerUpdateProfile} />
+            <Route path="/buyer-orders" component={BuyerOrder} />
+            <Route path="/buyer-order-details/:id" component={BuyerOrderDetails} />
             <Route path="/categories-admin" component={CategoryList} />
             <Route path="/category/add" component={AddCategory} />
             <Route path="/category-admin/:id" component={ViewCategory} />
