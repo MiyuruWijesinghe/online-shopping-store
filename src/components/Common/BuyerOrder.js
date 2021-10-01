@@ -44,7 +44,14 @@ export default function BuyerOrder(props) {
                 </Row>
             </Container><br/>
             <Container style={{color : 'white'}} className="dark-table-container">
-                {orders.map(order =>
+                {   orders.length === 0 ?
+                    <div className="row justify-content-center">
+                        <div className="col-auto">
+                            <h2 className="home-h1">No Orders Placed</h2>
+                        </div>
+                    </div>
+                    :
+                    orders.map(order =>
                     <>
                         <Row>
                             <Col>{order.id}</Col>

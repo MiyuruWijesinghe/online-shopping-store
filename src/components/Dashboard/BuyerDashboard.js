@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
 import authService from "../../services/auth.service";
+import { Image } from "react-bootstrap";
 
 export default function BuyerDashboard(props) {
 
@@ -38,22 +39,6 @@ export default function BuyerDashboard(props) {
                                         <div className="card-counter conf">
                                             <i className="fa fa-gift"></i>
                                             <div className="card-body"><span className="count-name">Orders</span></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-md-3">
-                                    <a href="/profile">
-                                        <div className="card-counter conf">
-                                            <i className="fa fa-shopping-cart"></i>
-                                            <div className="card-body"><span className="count-name">Cart</span></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-md-3">
-                                    <a href="/profile">
-                                        <div className="card-counter conf">
-                                            <i className="fa fa-gift"></i>
-                                            <div className="card-body"><span className="count-name">Wishlist</span></div>
                                         </div>
                                     </a>
                                 </div>

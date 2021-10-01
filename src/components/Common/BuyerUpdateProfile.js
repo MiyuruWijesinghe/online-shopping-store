@@ -4,6 +4,8 @@ import BuyerSideNav from "../Navbar/BuyerSideNav";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import authService from "../../services/auth.service";
 import authHeader from "../../services/auth-header";
+import {storage} from "../../firebase";
+import appleCamera from "../../images/apple-camera.png";
 
 export default function BuyerUpdateProfile({props}) {
 
@@ -19,9 +21,13 @@ export default function BuyerUpdateProfile({props}) {
         status: "",
         nic: "",
         dob: "",
+        userImage: "",
         email: "",
         password: ""
     })
+    const [image, setImage] = useState(null);
+    const [progress, setProgress] = useState('');
+    const [imageURL, setImageURL] = useState("");
 
     useEffect(() => {
         getBuyer();
@@ -61,11 +67,58 @@ export default function BuyerUpdateProfile({props}) {
         })
     }
 
+    function handleImageChange(e) {
+        if(e.target.files[0]) {
+            const imageFile = e.target.files[0]
+            setImage(imageFile)
+        }
+    }
+
+    function handleImageUpload(e) {
+        e.preventDefault();
+        if(image == null) {
+            alert("Please select an image");
+        } else {
+            const uploadTask = storage.ref(`Tracks/${image.name}`).put(image);
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progressValue = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    setProgress(progressValue);
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    storage.ref('Tracks').child(image.name).getDownloadURL().then(url => {
+                        console.log(url);
+                        const uploadedURL = url;
+                        setImageURL(uploadedURL);
+                        alert("Image uploaded successfully.")
+                    })
+                });
+        }
+    }
+
     return(
         <div className="main">
             <BuyerSideNav/>
             <Container style={{color : 'white'}} className="dark-table-container">
                 <center><h3>Update Profile Details</h3></center>
+            </Container>
+            <Container style={{color: 'white'}} className="dark-table-container">
+                <div className="form-group row">
+                    <label htmlFor="imageURL" className="col-sm-3 lg-wh">User Image</label>
+                    <div className="col-sm-5">
+                        <input type="file" onChange={(e) => handleImageChange(e)} className="form-control file-box" id="imageURL" />
+                    </div>
+                        <div className="col">
+                        <button onClick={(e) => handleImageUpload(e)} className="btn btn-success">Upload</button>
+                    </div>
+                    <div className="col">
+                        <img src={ imageURL || appleCamera} alt="No Image" height="100" width="160" /><br />
+                        <progress className="progress-bar progress-bar-striped bg-danger" role="progressbar" value={progress} max="100" />
+                    </div>
+                </div><br/>
             </Container>
             <Container style={{color: 'white'}} className="dark-table-container">
                 <Col xs={6}>

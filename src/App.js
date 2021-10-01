@@ -62,7 +62,8 @@ class App extends Component {
       this.setState({
         currentUser: user,
         showAdminBoard: user.role.includes("ADMIN"),
-        showSellerBoard: user.role.includes("SELLER")
+        showSellerBoard: user.role.includes("SELLER"),
+        showBuyerBoard: user.role.includes("BUYER")
       });
     }
   }
@@ -73,7 +74,7 @@ class App extends Component {
 
 
   render() {
-    const { currentUser, showAdminBoard, showSellerBoard } = this.state;
+    const { currentUser, showAdminBoard, showSellerBoard, showBuyerBoard } = this.state;
 
     return (
       <div>
@@ -90,6 +91,12 @@ class App extends Component {
             {showSellerBoard && (
               <li className="nav-item">
                 <Link to={"/seller"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Seller</Link>
+              </li>
+            )}
+
+            {showBuyerBoard && (
+              <li className="nav-item">
+                <Link to={"/buyer"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Buyer</Link>
               </li>
             )}
 
