@@ -56,37 +56,28 @@ export default class Login extends Component {
             AuthService.login(this.state.username, this.state.password).then(
                 response => {
                     //console.log(response.role)
-                    if (response.role === 'ROLE_ADMIN') {
+                    if (response.role === 'ADMIN') {
                         this.props.history.push("/admin");
                         window.location.reload();
-                    } else if (response.role === 'ROLE_EDITOR') {
-                        this.props.history.push("/editor");
+                    } else if (response.role === 'BUYER') {
+                        this.props.history.push("/home");
                         window.location.reload();
-                    } else if (response.role === 'ROLE_REVIEWER') {
-                        this.props.history.push("/reviewer");
-                        window.location.reload();
-                    } else if (response.role === 'ROLE_RESEARCHER') {
-                        this.props.history.push("/researcher");
-                        window.location.reload();
-                    } else if (response.role === 'ROLE_WORKSHOP_CONDUCTOR') {
-                        this.props.history.push("/workshop-conductor");
-                        window.location.reload();
-                    } else if (response.role === 'ROLE_USER') {
+                    } else if (response.role === 'SELLER') {
                         this.props.history.push("/home");
                         window.location.reload();
                     } else {
-                        this.props.history.push("/home");
+                        this.props.history.push("/");
                     }
 
                     //window.location.reload();
                 },
                 error => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
+                    const resMessage = "Invalid Username or Password"
+                    /*(error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();*/
 
                     this.setState({
                         loading: false,
@@ -104,7 +95,7 @@ export default class Login extends Component {
     render() {
         return (
             <div className="col-md-12">
-                <div className="card card-container bg-dark" style={{color : 'white'}}>
+                <div className="card card-container bg-dark" style={{ color: 'white' }}>
                     <img
                         src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg"
                         alt="profile-img"

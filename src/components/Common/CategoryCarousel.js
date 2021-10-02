@@ -37,7 +37,7 @@ export default function CategoryCarousel() {
                     :
                     categories.map(category => (
                         <div key={category.id} className="carousel-clz">
-                            <div className="card bg-dark fr-track-card">
+                            <div className="card bg-dark fr-key-card">
                                 <img className="card-img-top fr-track-card-img" src={category.imageURL} alt="No image" />
                                 <div className="card-body">
                                     <center><h5>{category.name}</h5></center>
