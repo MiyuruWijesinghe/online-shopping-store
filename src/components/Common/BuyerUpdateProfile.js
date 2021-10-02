@@ -50,9 +50,10 @@ export default function BuyerUpdateProfile({props}) {
             dob: data.dob,
             username: data.username,
             email: data.email,
-            password: data.password
+            password: data.password,
+            userImage: imageURL
         },  {headers: authHeader()}).then((res) => {
-            alert(res);
+            alert(res.data.messages);
         }).catch((err) => {
             alert(err);
         })

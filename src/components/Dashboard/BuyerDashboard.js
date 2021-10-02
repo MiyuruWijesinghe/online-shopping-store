@@ -2,11 +2,40 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
 import authService from "../../services/auth.service";
-import { Image } from "react-bootstrap";
+import { Image, Col } from "react-bootstrap";
 
 export default function BuyerDashboard(props) {
 
-    const username = authService.getCurrentUser().username;
+    const [data, setData] = useState({
+        username: "",
+        id: "",
+        firstName: "",
+        lastName: "",
+        addressLine1: "",
+        addressLine2: "",
+        addressLine3: "",
+        phoneNumber: "",
+        status: "",
+        nic: "",
+        dob: "",
+        email: "",
+        password: "",
+        userImage: ""
+    })
+
+    useEffect(() => {
+        getBuyer();
+    }, [])
+
+    function getBuyer() {
+        data.username = authService.getCurrentUser().username;
+        axios.get("https://shopping-backend-api.herokuapp.com/auth/buyer/" + data.username).then((res) => {
+            setData(res.data);
+        }).catch((err) => {
+            alert(err);
+        })
+        console.log(data.userImage + "hhhh")
+    }
 
     return(
         <div className="main">
@@ -17,11 +46,11 @@ export default function BuyerDashboard(props) {
                     <div className="container dark-table-container">
                         <br/>
                         <div className="row">
-                            <div className="col-sm-3">
-                                <div><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-                            </div>
+                            <Col xs={3} style={{marginLeft:"3%"}}>
+                                <Image src={data.userImage} rounded alt="No Image" width="120px"/>
+                            </Col>
                             <div className="col">
-                                <h3 className="col" style={{color : 'white'}}>{username}</h3>
+                                <h4 className="col" style={{color : 'white'}}>{data.username}</h4>
                             </div>
                         </div>
                         <div className="container dark-boots-table">

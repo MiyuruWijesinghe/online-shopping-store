@@ -60,7 +60,7 @@ export default class Login extends Component {
                         this.props.history.push("/admin");
                         window.location.reload();
                     } else if (response.role === 'BUYER') {
-                        this.props.history.push("/buyer");
+                        this.props.history.push("/home");
                         window.location.reload();
                     } else if (response.role === 'SELLER') {
                         this.props.history.push("/home");

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import BuyerSideNav from "../Navbar/BuyerSideNav";
 import authService from "../../services/auth.service";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 
 export default function BuyerProfile(props) {
 
@@ -19,7 +19,8 @@ export default function BuyerProfile(props) {
         nic: "",
         dob: "",
         email: "",
-        password: ""
+        password: "",
+        userImage: ""
     })
 
     useEffect(() => {
@@ -43,6 +44,10 @@ export default function BuyerProfile(props) {
                     <center style={{color : 'white'}}><h3>Profile Details</h3></center>
                 </div>
                 <Container style={{color : 'white'}} className="dark-table-container">
+                    <Row>
+                        <Col className="col-sm-3"><Image src={data.userImage} rounded alt="No Image" width="120px"/></Col>
+                        <Col><h4>{data.username}</h4></Col>
+                    </Row><br/>
                     <Row>
                         <Col className="col-sm-3">Full Name</Col>
                         <Col>{data.firstName} {data.lastName}</Col>
