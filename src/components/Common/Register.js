@@ -50,6 +50,16 @@ const vpassword = value => {
     }
 };
 
+const vNic = value => {
+    if (value.length < 10 || value.length > 10) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                The NIC must be 10 characters.
+            </div>
+        );
+    }
+};
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -346,7 +356,7 @@ export default class Register extends Component {
                                             name="nic"
                                             value={this.state.nic}
                                             onChange={this.onChangeNic}
-                                            validations={[required]}
+                                            validations={[required, vNic]}
                                         />
                                     </div>
                                     <div className="form-group">
