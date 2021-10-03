@@ -162,8 +162,6 @@ export default function ViewItemFront(props) {
                                         <br/>
                                         <div style={{textAlign: 'justify'}}>
                                             <form>
-
-                                                <button className="btn btn-success" onClick={placeOrder}>Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
                                                 <button className="btn btn-primary" onClick={(e) => submit(e)}>Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
                                             </form>
                                         </div>
