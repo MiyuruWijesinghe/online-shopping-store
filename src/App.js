@@ -16,6 +16,11 @@ import Login from "./components/Common/Login";
 import Register from "./components/Common/Register";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import SellerDashboard from "./components/Dashboard/SellerDashboard";
+import BuyerDashboard from "./components/Dashboard/BuyerDashboard";
+import BuyerProfile from "./components/Common/BuyerProfile";
+import BuyerUpdateProfile from "./components/Common/BuyerUpdateProfile";
+import BuyerOrder from "./components/Common/BuyerOrder";
+import BuyerOrderDetails from "./components/Common/BuyerOrderDetails";
 import CategoryList from "./components/Category/CategoryList";
 import AddCategory from "./components/Category/AddCategory";
 import ViewCategory from "./components/Category/ViewCategory";
@@ -57,7 +62,8 @@ class App extends Component {
       this.setState({
         currentUser: user,
         showAdminBoard: user.role.includes("ADMIN"),
-        showSellerBoard: user.role.includes("SELLER")
+        showSellerBoard: user.role.includes("SELLER"),
+        showBuyerBoard: user.role.includes("BUYER")
       });
     }
   }
@@ -68,7 +74,7 @@ class App extends Component {
 
 
   render() {
-    const { currentUser, showAdminBoard, showSellerBoard } = this.state;
+    const { currentUser, showAdminBoard, showSellerBoard, showBuyerBoard } = this.state;
 
     return (
       <div>
@@ -85,6 +91,12 @@ class App extends Component {
             {showSellerBoard && (
               <li className="nav-item">
                 <Link to={"/seller"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Seller</Link>
+              </li>
+            )}
+
+            {showBuyerBoard && (
+              <li className="nav-item">
+                <Link to={"/buyer"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Buyer</Link>
               </li>
             )}
 
@@ -122,6 +134,11 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/seller" component={SellerDashboard} />
+            <Route path="/buyer" component={BuyerDashboard} />
+            <Route path="/buyer-profile" component={BuyerProfile} />
+            <Route path="/buyer-update-profile" component={BuyerUpdateProfile} />
+            <Route path="/buyer-orders" component={BuyerOrder} />
+            <Route path="/buyer-order-details/:id" component={BuyerOrderDetails} />
             <Route path="/categories-admin" component={CategoryList} />
             <Route path="/category/add" component={AddCategory} />
             <Route path="/category-admin/:id" component={ViewCategory} />

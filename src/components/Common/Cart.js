@@ -42,9 +42,8 @@ export default function Cart(props) {
     }
 
     function proceedCart() {
-        // props.history.push("/order")
         history.push("/order");
-        window.location.reload();
+        window.location.reload(false);
     }
 
     return (
