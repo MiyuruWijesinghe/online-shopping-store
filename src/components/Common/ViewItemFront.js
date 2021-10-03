@@ -3,7 +3,8 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import ItemSlideShow from "./ItemSlideShow";
-import Rating from '@material-ui/lab/Rating';
+import AuthService from "../../services/auth.service";
+import authHeader from "../../services/auth-header";
 
 export default function ViewItemFront(props) {
 
@@ -21,16 +22,20 @@ export default function ViewItemFront(props) {
     });
     const [finalPrice, setFinalPrice] = useState("");
     const [attributeData, setAttributeData] = useState([]);
+    const [qty, setQty] = useState(1);
+    const [userName, setUserName] = useState("");
+    const [itemId, setItemId] = useState("");
 
     useEffect(() => {
         getItem();
     }, [])
 
     function getItem() {
-        const itemId = props.match.params.id;
-        axios.get("https://shopping-backend-api.herokuapp.com/item/"+itemId).then((res) => {
+        const itemsId = props.match.params.id;
+        axios.get("https://shopping-backend-api.herokuapp.com/item/"+itemsId).then((res) => {
             console.log(res.data);
             setData(res.data);
+            setItemId(res.data.id);
         }).catch((err) => {
             alert(err);
         })
@@ -61,6 +66,57 @@ export default function ViewItemFront(props) {
         })
     }
 
+    function incrementItem() {
+        setQty(qty + 1);
+    }
+
+    function decrementItem() {
+        setQty(qty - 1);
+    }
+
+    function getCurrentUserName() {
+        const user = AuthService.getCurrentUser();
+        let userName = "user";
+        if(user != null) {
+            userName = user.username;
+        }
+        setUserName(userName);
+    }
+
+    useEffect(() => {
+        getCurrentUserName();
+    }, null)
+
+    function submit(e) {
+        e.preventDefault();
+        const cartObject = {
+            itemId: itemId.toString(),
+            quantity: qty.toString()
+        }
+        const dataObject = {
+            userName,
+            cartItems:[cartObject]
+        }
+        axios.post("https://shopping-backend-api.herokuapp.com/cart/save", dataObject, {headers: authHeader()}).then((res) => {
+            console.log(dataObject);
+            alert(res.data.messages);
+        }).catch((err) => {
+            if(err.response.data.userName !== undefined) {
+                alert(err.response.data.userName);
+            } else if(err.response.data.status !== undefined) {
+                alert(err.response.data.status);
+            } else if(err.response.data.message !== undefined) {
+                alert(err.response.data.message);
+            } else {
+                alert(err);
+            }
+        })
+    }
+
+    function placeOrder() {
+        props.history.push("/order")
+    }
+
     return(
         <div>
             <Header/>
@@ -69,7 +125,7 @@ export default function ViewItemFront(props) {
                     <div className="row justify-content-center">
                         <div className="col-auto">
                             <div className="card bg-dark fr-work-card">
-                                <div className="row ">
+                                <div className="row">
                                     <div className="col">
                                         <ItemSlideShow
                                             itemImage1={data.imageURL1}
@@ -81,12 +137,15 @@ export default function ViewItemFront(props) {
                                     </div>
                                     <div className="col">
                                         <h5 style={{textAlign: 'justify', textJustify: 'inter-word'}}>{data.name}</h5><br/>
-                                        <p style={{textAlign: 'justify'}}><Rating name="half-rating-read" defaultValue={2} precision={0.5} readOnly /></p>
-                                        <p style={{textAlign: 'justify'}}>2 Ratings</p><br/>
                                         <h6 style={{textAlign: 'justify', textJustify: 'inter-word'}}>{data.description}</h6><br/>
                                         <h4 style={{textAlign: 'justify', textJustify: 'inter-word', color: 'yellow'}}>Rs.&nbsp; {finalPrice}</h4><br/>
                                         <strike><h4 style={{textAlign: 'justify', textJustify: 'inter-word', color: 'grey'}}>Rs.&nbsp; {(Math.round(data.price * 100) / 100).toFixed(2)}</h4></strike><br/>
-
+                                        <h6 style={{textAlign: 'justify'}}>Quantity : </h6>
+                                        <p style={{textAlign: 'justify'}}>
+                                            <button type="button" className="btn btn-sm btn-success" onClick={decrementItem}>-</button>
+                                            <button type="button" className="btn btn-sm btn-light">{qty}</button>
+                                            <button type="button" className="btn btn-sm btn-success" onClick={incrementItem}>+</button>
+                                        </p>
                                         {
                                             attributeData.length === 0 ?
                                                     <div className="col-auto">
@@ -99,10 +158,13 @@ export default function ViewItemFront(props) {
                                                     </div>
                                                 ))
                                         }
-
+                                        <br/>
                                         <div style={{textAlign: 'justify'}}>
-                                            <button className="btn btn-success">Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
-                                            <button className="btn btn-primary">Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
+                                            <form>
+
+                                                <button className="btn btn-success" onClick={placeOrder}>Buy Now &nbsp;<i className="fa fa-hand-o-up"></i></button>&nbsp; &nbsp;
+                                                <button className="btn btn-primary" onClick={(e) => submit(e)}>Add to Cart &nbsp;<i className="fa fa-shopping-cart"></i></button>
+                                            </form>
                                         </div>
                                         <br/>
                                     </div>

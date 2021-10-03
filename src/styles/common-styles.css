@@ -40,7 +40,7 @@
 
 .fr-key-card {
     width: 300px;
-    height: 400px;
+    height: 330px;
     color: white;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .fr-track-card {
-    width: 300px;
-    height: 320px;
+    width: 900px;
+    height: 750px;
     color: white;
 }
 
@@ -62,7 +62,7 @@
 
 .fr-work-card {
     width: 900px;
-    height: 600px;
+    height: 800px;
     color: white;
 }
 

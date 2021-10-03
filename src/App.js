@@ -6,6 +6,7 @@ import "./styles/dashboard-styles.css";
 import "./styles/footer-styles.css";
 import "./styles/common-styles.css";
 import "./styles/slide-show.css";
+import "./styles/order-styles.css";
 import "./styles/reportlist-styles.css";
 import cartImage from "./images/shopping.jpg";
 
@@ -15,6 +16,11 @@ import Login from "./components/Common/Login";
 import Register from "./components/Common/Register";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import SellerDashboard from "./components/Dashboard/SellerDashboard";
+import BuyerDashboard from "./components/Dashboard/BuyerDashboard";
+import BuyerProfile from "./components/Common/BuyerProfile";
+import BuyerUpdateProfile from "./components/Common/BuyerUpdateProfile";
+import BuyerOrder from "./components/Common/BuyerOrder";
+import BuyerOrderDetails from "./components/Common/BuyerOrderDetails";
 import CategoryList from "./components/Category/CategoryList";
 import AddCategory from "./components/Category/AddCategory";
 import ViewCategory from "./components/Category/ViewCategory";
@@ -34,7 +40,8 @@ import ItemAttributeValueList from "./components/ItemAttributeValues/ItemAttribu
 import CategoryListFront from "./components/Common/CategoryListFront";
 import ItemListFront from "./components/Common/ItemListFront";
 import ViewItemFront from "./components/Common/ViewItemFront";
-import AdminReports from "./components/Reports/ReporsList"
+import ProceedOrder from "./components/Common/ProceedOrder";
+import AdminReports from "./components/Reports/ReporsList";
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +62,8 @@ class App extends Component {
       this.setState({
         currentUser: user,
         showAdminBoard: user.role.includes("ADMIN"),
-        showSellerBoard: user.role.includes("SELLER")
+        showSellerBoard: user.role.includes("SELLER"),
+        showBuyerBoard: user.role.includes("BUYER")
       });
     }
   }
@@ -66,7 +74,7 @@ class App extends Component {
 
 
   render() {
-    const { currentUser, showAdminBoard, showSellerBoard } = this.state;
+    const { currentUser, showAdminBoard, showSellerBoard, showBuyerBoard } = this.state;
 
     return (
       <div>
@@ -86,6 +94,12 @@ class App extends Component {
               </li>
             )}
 
+            {showBuyerBoard && (
+              <li className="nav-item">
+                <Link to={"/buyer"} className="nav-link" ><i className="fa fa-user"></i>&nbsp; Buyer</Link>
+              </li>
+            )}
+
           </div>
 
           {currentUser ? (
@@ -98,11 +112,6 @@ class App extends Component {
               <li className="nav-item">
                 <a href="/home" className="nav-link" onClick={this.logOut}>
                   &nbsp; LogOut
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="/home" className="nav-link">
-                  <i className="fa fa-shopping-cart"></i>&nbsp; Cart
                 </a>
               </li>
             </div>
@@ -125,6 +134,11 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/seller" component={SellerDashboard} />
+            <Route path="/buyer" component={BuyerDashboard} />
+            <Route path="/buyer-profile" component={BuyerProfile} />
+            <Route path="/buyer-update-profile" component={BuyerUpdateProfile} />
+            <Route path="/buyer-orders" component={BuyerOrder} />
+            <Route path="/buyer-order-details/:id" component={BuyerOrderDetails} />
             <Route path="/categories-admin" component={CategoryList} />
             <Route path="/category/add" component={AddCategory} />
             <Route path="/category-admin/:id" component={ViewCategory} />
@@ -144,6 +158,7 @@ class App extends Component {
             <Route path="/common-categories" component={CategoryListFront} />
             <Route path="/common-items/:id" component={ItemListFront} />
             <Route path="/view-item/:id" component={ViewItemFront} />
+            <Route path="/order" component={ProceedOrder} />
             <Route path="/admin-report" component={AdminReports} />
 
           </Switch>
