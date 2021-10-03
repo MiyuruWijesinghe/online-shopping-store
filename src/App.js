@@ -42,6 +42,9 @@ import ItemListFront from "./components/Common/ItemListFront";
 import ViewItemFront from "./components/Common/ViewItemFront";
 import ProceedOrder from "./components/Common/ProceedOrder";
 import AdminReports from "./components/Reports/ReporsList";
+import AdminItemList from "./components/SellerItem/AddItem";
+import AdminAddItem from "./components/SellerItem/AddItem";
+import AdminViewItem from "./components/SellerItem/ViewItem";
 
 class App extends Component {
   constructor(props) {
@@ -160,6 +163,9 @@ class App extends Component {
             <Route path="/view-item/:id" component={ViewItemFront} />
             <Route path="/order" component={ProceedOrder} />
             <Route path="/admin-report" component={AdminReports} />
+            <Route path="/items-seller" component={AdminItemList} />
+            <Route path="/seller-item/add" component={AdminAddItem} />
+            <Route path="/item-seller/:id" component={AdminViewItem} />
 
           </Switch>
         </div>
