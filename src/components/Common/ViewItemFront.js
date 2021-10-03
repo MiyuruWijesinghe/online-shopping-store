@@ -100,6 +100,7 @@ export default function ViewItemFront(props) {
         axios.post("https://shopping-backend-api.herokuapp.com/cart/save", dataObject, {headers: authHeader()}).then((res) => {
             console.log(dataObject);
             alert(res.data.messages);
+            window.location.reload(false);
         }).catch((err) => {
             if(err.response.data.userName !== undefined) {
                 alert(err.response.data.userName);

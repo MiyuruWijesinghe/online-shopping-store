@@ -24,7 +24,8 @@ export default function CategoryListFront(props) {
     }
 
     function viewItems(categoryId) {
-        props.history.push("common-items/"+categoryId)
+        props.history.push("common-items/"+categoryId);
+        window.location.reload(false);
     }
 
     function changePage(e) {
