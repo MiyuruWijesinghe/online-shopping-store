@@ -40,7 +40,8 @@ export default function ItemListFront(props) {
     }
 
     function viewItem(itemId) {
-        props.history.push("/view-item/"+itemId)
+        props.history.push("/view-item/"+itemId);
+        window.location.reload(false);
     }
 
     function changePage(e) {
