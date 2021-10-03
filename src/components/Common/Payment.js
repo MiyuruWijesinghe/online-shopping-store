@@ -43,7 +43,6 @@ export default function Payment(props) {
 
     function submit(e) {
         e.preventDefault();
-        generateInvoice();
         const dataObject = {
             orderRefCode,
             cardNumber,
@@ -55,6 +54,8 @@ export default function Payment(props) {
         axios.post("https://shopping-backend-api.herokuapp.com/payment/pay", dataObject, { headers: authHeader() }).then((res) => {
             console.log(dataObject);
             alert(res.data.message + " " + res.data.refrenceNo);
+            generateInvoice();
+            props.history.push("/");
         }).catch((err) => {
             if (err.response.data.orderRefCode !== undefined) {
                 alert(err.response.data.orderRefCode);
