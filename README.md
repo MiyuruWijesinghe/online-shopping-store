@@ -6,7 +6,7 @@
 
 ### Member Details:-
 
-| First Header  | Student ID |Username|
+| Name  | Student ID |Username|
 | ------------- | ------------- |-------------|
 | JAYASINGHA J.M.M.M  | IT19004914  | MenukaJ |
 | WIJESINGHE M.K | IT19020990   | MiyuruWijesinghe |
